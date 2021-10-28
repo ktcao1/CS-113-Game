@@ -50,6 +50,9 @@ TagManager:
   - name: Actor
     uniqueID: 325672235
     locked: 0
+  - name: FrontWall
+    uniqueID: 2153768035
+    locked: 0
   - name: Object
     uniqueID: 3253485749
     locked: 0

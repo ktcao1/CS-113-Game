@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb = null;
     [SerializeField] private SpriteRenderer sr = null;
-    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float moveSpeed = 0.75f;
     private Vector2 movement;
 
     void Update()
@@ -19,6 +19,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movement.x > 0) sr.flipX = false;
         if (movement.x < 0) sr.flipX = true;
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
 }
