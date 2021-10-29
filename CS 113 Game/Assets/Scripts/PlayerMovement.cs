@@ -5,20 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb = null;
-    [SerializeField] private SpriteRenderer sr = null;
     [SerializeField] private float moveSpeed = 0.75f;
     private Vector2 movement;
+    [SerializeField] private Transform playerTransform;
 
-    void Update()
+    private void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (movement.x > 0) sr.flipX = false;
-        if (movement.x < 0) sr.flipX = true;
+        if (movement.x > 0) playerTransform.localScale = new Vector2(1, 1);
+        if (movement.x < 0) playerTransform.localScale = new Vector2(-1, 1);
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
 }
