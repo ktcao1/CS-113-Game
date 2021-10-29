@@ -23,6 +23,12 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(Damage dmg)
     {
         healthPoints -= dmg.damageAmount;
+        if (healthPoints <= 0) Die();
         hp.UpdateHealth((float)healthPoints / maxHealthPoints);
+    }
+
+    private void Die()
+    {
+        Destroy(this.gameObject);
     }
 }
