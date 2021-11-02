@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private HealthBar hp;
+    [SerializeField] private HealthBarEnemy hp;
 
     // Stats
     public int healthPoints;
     public int maxHealthPoints;
+    public int damage;
 
     private void Start()
     {
         maxHealthPoints = 15;
         healthPoints = maxHealthPoints;
+        damage = 1;
     }
 
-    private void Update()
+    private void OnCollisionStay2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.TakeDamage(new Damage{damageAmount = damage, pushForce = 0});
+        }
     }
 
     public void TakeDamage(Damage dmg)

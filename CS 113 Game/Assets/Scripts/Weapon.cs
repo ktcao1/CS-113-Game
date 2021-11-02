@@ -13,29 +13,21 @@ public class Weapon : MonoBehaviour
 
     // Cooldown
     private float cooldown = 0.5f;
-    private float lastSwing = 0.5f;
+    private float lastAttack = -0.5f;
 
     // Upgrade
     public int weaponLevel = 0;
 
-    private void Update()
+    public void Attack()
     {
-        if (Input.GetKeyDown(player.fireKey))
+        if (Time.time - lastAttack > cooldown)
         {
-            if (Time.time - lastSwing > cooldown)
-            {
-                lastSwing = Time.time;
-                Swing();
-            }
+            lastAttack = Time.time;
+            animator.SetTrigger("Attack");
         }
     }
 
-    private void Swing()
-    {
-        animator.SetTrigger("Swing");
-    }
-
-    void OnTriggerEnter2D(Collider2D collider2D)
+    private void OnTriggerEnter2D(Collider2D collider2D)
     {
         if (collider2D.tag != "Enemy") return;
 
