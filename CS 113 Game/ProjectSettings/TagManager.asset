@@ -39,6 +39,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: CollisionMap
+    uniqueID: 2537453023
+    locked: 0
+  - name: NavMesh
+    uniqueID: 1341294037
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
