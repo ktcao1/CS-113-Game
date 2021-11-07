@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (movement.x > 0) playerTransform.localScale = new Vector2(1, 1);
-        if (movement.x < 0) playerTransform.localScale = new Vector2(-1, 1);
+        else if (movement.x < 0) playerTransform.localScale = new Vector2(-1, 1);
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
 }

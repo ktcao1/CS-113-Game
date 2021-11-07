@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        hp.UpdateHealth(1f/1f);
+        Instantiate(this.gameObject.transform, new Vector3(0,0,0), Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

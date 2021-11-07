@@ -17,6 +17,11 @@ public class AIMovement : MonoBehaviour
 
     void Update()
     {
-        if (target != null) agent.SetDestination(target.position);
+        if (target != null) 
+        {
+            agent.SetDestination(target.position);
+            if (agent.desiredVelocity.x > 0) agent.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = false;
+            else if (agent.desiredVelocity.x < 0) agent.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = true;
+        }
     }
 }
