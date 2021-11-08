@@ -54,11 +54,11 @@ TagManager:
   - name: Wall
     uniqueID: 4010503275
     locked: 0
-  - name: CharacterUI
-    uniqueID: 4286317563
-    locked: 0
   - name: Actor
     uniqueID: 325672235
+    locked: 0
+  - name: CharacterUI
+    uniqueID: 4286317563
     locked: 0
   - name: FrontWall
     uniqueID: 2153768035

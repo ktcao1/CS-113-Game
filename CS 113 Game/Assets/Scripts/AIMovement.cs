@@ -20,6 +20,8 @@ public class AIMovement : MonoBehaviour
         if (target != null) 
         {
             agent.SetDestination(target.position);
+            
+            // Flip sprite
             if (agent.desiredVelocity.x > 0) agent.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = false;
             else if (agent.desiredVelocity.x < 0) agent.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = true;
         }

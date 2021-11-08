@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     // Inputs
     public KeyCode upKey, downKey, leftKey, rightKey;
     public KeyCode fireKey;
+    public KeyCode menuKey = KeyCode.Escape;
 
     // Stats and Combat
     private int healthPoints;
@@ -38,6 +39,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(fireKey))
         {
             weapon.Attack();
+        }
+        if (Input.GetKeyDown(menuKey))
+        {
+            GameManager.instance.PauseGame();
         }
     }
 
