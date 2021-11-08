@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 using System;
@@ -13,9 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Sprite> weaponSprites;
     [SerializeField] private Player player;
 
-    // Pause
+    // Interactable UI
     [SerializeField] private GameObject pausePanel;
-    private bool paused;
+    [SerializeField] private GameObject gameOverPanel;
 
     // UI
     [SerializeField] private TMP_Text scoreText;
@@ -28,26 +28,32 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        paused = false;
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     // TODO: Change into a full menu in the future
     public void PauseGame()
     {
-        if (paused)
+        if (pausePanel.activeSelf)
         {
-            paused = false;
             pausePanel.SetActive(false);
             Time.timeScale = 1;
         }
         else
         {
-            paused = true;
             pausePanel.SetActive(true);
             Time.timeScale = 0;
         }
+    }
+
+    public void EndScreen()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 
     // TODO: Change into different UI in the future
