@@ -89,7 +89,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 325672235
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 4942803658038726614, guid: 8a819dc2d6e95584e9e04a788d224721, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -112,7 +112,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.061808407, y: 0.026440263}
@@ -216,7 +216,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 325672235
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 5278517354502994428, guid: a32bf31400a7e94469c2d36f36fa31c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -284,6 +284,7 @@ MonoBehaviour:
   leftKey: 0
   rightKey: 0
   fireKey: 0
+  menuKey: 27
 --- !u!114 &5427779312710727022
 MonoBehaviour:
   m_ObjectHideFlags: 0
