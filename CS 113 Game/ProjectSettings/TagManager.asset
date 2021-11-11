@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - SpawnPoint
+  - Rooms
+  - DungeonGenerator
   layers:
   - Default
   - TransparentFX
@@ -54,6 +57,9 @@ TagManager:
   - name: Wall
     uniqueID: 4010503275
     locked: 0
+  - name: Doors
+    uniqueID: 596640535
+    locked: 0
   - name: Actor
     uniqueID: 325672235
     locked: 0
@@ -62,6 +68,9 @@ TagManager:
     locked: 0
   - name: FrontWall
     uniqueID: 2153768035
+    locked: 0
+  - name: FrontDoors
+    uniqueID: 3778691715
     locked: 0
   - name: Object
     uniqueID: 3253485749
