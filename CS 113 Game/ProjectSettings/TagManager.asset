@@ -8,6 +8,8 @@ TagManager:
   - SpawnPoint
   - Rooms
   - DungeonGenerator
+  - Portal
+  - PortalExit
   layers:
   - Default
   - TransparentFX

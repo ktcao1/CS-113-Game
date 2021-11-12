@@ -17,7 +17,7 @@ public class RoomTemplates : MonoBehaviour
     public List<GameObject> rooms;
     public List<GameObject> finalRooms;
 
-    private float waitTime = 5f;
+    private float waitTime = 2f;
     private bool removed = false;
 
     void Update()
@@ -31,19 +31,36 @@ public class RoomTemplates : MonoBehaviour
             for (int i = 0; i < finalRooms.Count; i++)
             {
                 char op = finalRooms[i].GetComponent<AddRoom>().op;
-                if (op != finalRooms[i].name[0])
+                if (op != finalRooms[i].name[0] || op != finalRooms[i].name[1])
                 {
-                    if (op == 'B') Instantiate(bottom, finalRooms[i].transform.position, Quaternion.identity);
-                    if (op == 'T') Instantiate(top, finalRooms[i].transform.position, Quaternion.identity);
-                    if (op == 'L') Instantiate(left, finalRooms[i].transform.position, Quaternion.identity);
-                    if (op == 'R') Instantiate(right, finalRooms[i].transform.position, Quaternion.identity);
-                }
-                else if (op != finalRooms[i].name[1])
-                {
-                    if (op == 'B') Instantiate(bottom, finalRooms[i].transform.position, Quaternion.identity);
-                    if (op == 'T') Instantiate(top, finalRooms[i].transform.position, Quaternion.identity);
-                    if (op == 'L') Instantiate(left, finalRooms[i].transform.position, Quaternion.identity);
-                    if (op == 'R') Instantiate(right, finalRooms[i].transform.position, Quaternion.identity);
+                    if (op == 'B') // openingDirection == 1
+                    {
+                        GameObject go = Instantiate(bottom, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
+                        RoomSpawner.FindPortal(go, 2).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 1); 
+                        RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 1).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 2); 
+                    } 
+                    if (op == 'T') // openingDirection == 2
+                    {
+                        GameObject go = Instantiate(top, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
+                        RoomSpawner.FindPortal(go, 1).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 2); 
+                        RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 2).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 1); 
+                    } 
+                    if (op == 'L') // openingDirection == 3
+                    {
+                        GameObject go = Instantiate(left, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
+                        RoomSpawner.FindPortal(go, 4).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 3);
+                        RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 3).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 4); 
+                    } 
+                    if (op == 'R') // openingDirection == 4
+                    {
+                        GameObject go = Instantiate(right, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
+                        RoomSpawner.FindPortal(go, 3).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 4);
+                        RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 4).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 3); 
+                    } 
                 }
                 destroyedRooms.Enqueue(finalRooms[i]);
             }
@@ -52,6 +69,7 @@ public class RoomTemplates : MonoBehaviour
             while (destroyedRooms.Count > 0)
             {
                 GameObject destroyedRoom = destroyedRooms.Dequeue();
+                rooms.Remove(destroyedRoom);
                 Destroy(destroyedRoom);
             }
 

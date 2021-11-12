@@ -4,16 +4,36 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public Queue<RoomSpawner> spawnPointers = new Queue<RoomSpawner>();
+    public List<RoomSpawner> spawnPointers = new List<RoomSpawner>();
     public int count = 0;
-    public float lastSpawned = -1f;
-    public float cooldown = 1f;
+    public bool check = false;
 
     void Update()
     {
-        if (spawnPointers.Count > 0)
+        if (spawnPointers.Count >= 4 && check == false)
         {
-            RoomSpawner rs = spawnPointers.Dequeue();
+            for (int i = 0; i < 4; i++) // look for number
+            {
+                for (int j = 0; j < 4; j++) // loop over list to look for number
+                {
+                    RoomSpawner rs = spawnPointers[j];
+                    int op = rs.openingDirection;
+                    if (op == i+1)
+                    {
+                        spawnPointers.RemoveAt(j);
+                        spawnPointers.Insert(op - 1, rs);
+                        break;
+                    }
+                }
+            }
+            check = true;
+
+        }
+        else if (spawnPointers.Count > 0 && check == true)
+        {
+            RoomSpawner rs = spawnPointers[0];
+            spawnPointers.RemoveAt(0);
+            Debug.Log(rs.openingDirection + " " + rs.ownerRoom);
 
             if (count < 4)
             {

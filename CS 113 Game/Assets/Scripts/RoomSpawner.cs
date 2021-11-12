@@ -15,14 +15,39 @@ public class RoomSpawner : MonoBehaviour
     public int rand;
     public bool spawned = false;
     public List<string> openings;
+    public GameObject ownerRoom;
+
+    public Portal portal;
+    public GameObject portalExit;
 
     void Start()
     {
         Destroy(gameObject, 5f);
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         dungeonGenerator = GameObject.FindGameObjectWithTag("DungeonGenerator").GetComponent<DungeonGenerator>();
-        dungeonGenerator.spawnPointers.Enqueue(this);
+        dungeonGenerator.spawnPointers.Add(this);
         // Invoke("Spawn", 0.1f);
+    }
+
+    public static GameObject FindPortalExit(GameObject gameObject, int portalNum)
+    {
+        Transform tf = gameObject.transform;
+        Transform portalExits = tf.Find("PortalExits");
+        return portalExits.Find(portalNum.ToString()).gameObject;
+    }
+
+    public static GameObject FindPortal(GameObject gameObject, int portalNum)
+    {
+        Transform tf = gameObject.transform;
+        Transform portals = tf.Find("Portals");
+        return portals.Find(portalNum.ToString()).gameObject;
+    }
+
+    public static RoomSpawner FindSpawnPoint(GameObject gameObject, int spawnNum)
+    {
+        Transform tf = gameObject.transform;
+        Transform spawnPoints = tf.Find("Spawnpoints");
+        return spawnPoints.Find(spawnNum.ToString()).gameObject.GetComponent<RoomSpawner>();
     }
 
     public void Spawn()
@@ -34,6 +59,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.bottomRooms.Length);
                 GameObject go = Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'B';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 2);
                 if (rand == 0) openings = new List<string>{"B"};
                 if (rand == 1) openings = new List<string>{"B", "R"};
                 if (rand == 2) openings = new List<string>{"B", "T"};
@@ -43,6 +71,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.topRooms.Length);
                 GameObject go = Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'T';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 1);
                 if (rand == 0) openings = new List<string>{"T"};
                 if (rand == 1) openings = new List<string>{"T", "B"};
                 if (rand == 2) openings = new List<string>{"T", "L"};
@@ -53,6 +84,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.leftRooms.Length);
                 GameObject go = Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'L';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 4);
                 if (rand == 0) openings = new List<string>{"L"};
                 if (rand == 1) openings = new List<string>{"L", "R"};
                 if (rand == 2) openings = new List<string>{"L", "T"};
@@ -62,6 +96,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.rightRooms.Length);
                 GameObject go = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'R';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 3);
                 if (rand == 0) openings = new List<string>{"R"};
                 if (rand == 1) openings = new List<string>{"R", "B"};
                 if (rand == 2) openings = new List<string>{"R", "L"};
@@ -80,6 +117,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(1, templates.bottomRooms.Length);
                 GameObject go = Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'B';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 2); // Connect current portal to other room
                 if (rand == 1) openings = new List<string>{"B", "R"};
                 if (rand == 2) openings = new List<string>{"B", "T"};
             }
@@ -88,6 +128,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(1, templates.topRooms.Length);
                 GameObject go = Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'T';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 1);
                 if (rand == 1) openings = new List<string>{"T", "B"};
                 if (rand == 2) openings = new List<string>{"T", "L"};
                 if (rand == 3) openings = new List<string>{"T", "R"};
@@ -97,6 +140,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(1, templates.leftRooms.Length);
                 GameObject go = Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'L';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 4);
                 if (rand == 1) openings = new List<string>{"L", "R"};
                 if (rand == 2) openings = new List<string>{"T", "L"};
             }
@@ -105,6 +151,9 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(1, templates.rightRooms.Length);
                 GameObject go = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'R';
+                go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                portal.portalExit = FindPortalExit(go, 3);
                 if (rand == 1) openings = new List<string>{"R", "B"};
                 if (rand == 2) openings = new List<string>{"R", "L"};
                 if (rand == 3) openings = new List<string>{"T", "R"};
@@ -119,30 +168,94 @@ public class RoomSpawner : MonoBehaviour
         {
             RoomSpawner otherSpawner = other.GetComponent<RoomSpawner>();
 
-            if (!otherSpawner.spawned && !spawned)
+            if (!otherSpawner.spawned && !spawned && ownerRoom.name != "TBLR")
             {
                 if ((openingDirection == 1 && otherSpawner.openingDirection == 3) || (openingDirection == 3 && otherSpawner.openingDirection == 1))
                 {
-                    Instantiate(templates.closedRooms[0], transform.position, templates.closedRooms[0].transform.rotation);
+                    GameObject go = Instantiate(templates.closedRooms[0], transform.position, templates.closedRooms[0].transform.rotation);
+                    go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
+                    if (openingDirection == 1)
+                    {
+                        FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 4).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 2); // Connect current portal to other room
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 4); // Connect colliding portal to other room
+                    }
+                    else
+                    {   
+                        FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 2).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 4);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 2);
+                    }
                     openings = new List<string>{"B", "L"};
                 }
                 else if ((openingDirection == 1 && otherSpawner.openingDirection == 4) || (openingDirection == 4 && otherSpawner.openingDirection == 1))
                 {
-                    Instantiate(templates.closedRooms[1], transform.position, templates.closedRooms[1].transform.rotation);
+                    GameObject go = Instantiate(templates.closedRooms[1], transform.position, templates.closedRooms[1].transform.rotation);
+                    go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
+                    if (openingDirection == 1)
+                    {
+                        FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 3).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 2);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 3);
+                    }
+                    else
+                    {   
+                        FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 2).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 3);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 2);
+                    }
                     openings = new List<string>{"R", "B"};
                 }
                 else if ((openingDirection == 2 && otherSpawner.openingDirection == 3) || (openingDirection == 3 && otherSpawner.openingDirection == 2))
                 {
-                    Instantiate(templates.closedRooms[2], transform.position, templates.closedRooms[2].transform.rotation);
+                    GameObject go = Instantiate(templates.closedRooms[2], transform.position, templates.closedRooms[2].transform.rotation);
+                    go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
+                    if (openingDirection == 2)
+                    {
+                        FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 4).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 1);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 4);
+                    }
+                    else
+                    {   
+                        FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 1).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 4);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 1);
+                    }
                     openings = new List<string>{"T", "L"};
                 }
                 else if ((openingDirection == 2 && otherSpawner.openingDirection == 4) || (openingDirection == 4 && otherSpawner.openingDirection == 2))
                 {
-                    Instantiate(templates.closedRooms[3], transform.position, templates.closedRooms[3].transform.rotation);
+                    GameObject go = Instantiate(templates.closedRooms[3], transform.position, templates.closedRooms[3].transform.rotation);
+                    go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
+                    if (openingDirection == 2)
+                    {
+                        FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 3).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 1);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 3);
+                    }
+                    else
+                    {   
+                        FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
+                        FindPortal(go, 1).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
+                        portal.portalExit = FindPortalExit(go, 3);
+                        otherSpawner.portal.portalExit = FindPortalExit(go, 1);
+                    }
                     openings = new List<string>{"R", "T"};
                 }
             }
-            if (otherSpawner.spawned && !spawned)
+            else if (otherSpawner.spawned && !spawned)
             {
                 if (openingDirection == 1)
                 {

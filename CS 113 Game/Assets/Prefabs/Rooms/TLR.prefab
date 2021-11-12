@@ -95,6 +95,10 @@ MonoBehaviour:
   openingDirection: 4
   rand: 0
   spawned: 0
+  openings: []
+  ownerRoom: {fileID: 0}
+  portal: {fileID: 0}
+  portalExit: {fileID: 0}
 --- !u!1 &2989235393409662450
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +194,10 @@ MonoBehaviour:
   openingDirection: 3
   rand: 0
   spawned: 0
+  openings: []
+  ownerRoom: {fileID: 0}
+  portal: {fileID: 0}
+  portalExit: {fileID: 0}
 --- !u!1 &5427898240760999852
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,7 +6761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6088103134642035466}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.420212, y: -24.466505, z: 22.18318}
+  m_LocalPosition: {x: 21.420212, y: -24.466505, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6088103132781878443}
@@ -6791,6 +6799,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8afd775a1d7874d876d15051f965b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  room: {fileID: 0}
+  prevRoom: {fileID: 0}
+  op: 0
 --- !u!1 &8796939222449421052
 GameObject:
   m_ObjectHideFlags: 0
@@ -6886,3 +6897,7 @@ MonoBehaviour:
   openingDirection: 1
   rand: 0
   spawned: 0
+  openings: []
+  ownerRoom: {fileID: 0}
+  portal: {fileID: 0}
+  portalExit: {fileID: 0}
