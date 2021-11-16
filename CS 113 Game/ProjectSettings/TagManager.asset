@@ -10,6 +10,9 @@ TagManager:
   - DungeonGenerator
   - Portal
   - PortalExit
+  - RoomTiles
+  - StartRoom
+  - Obstacle
   layers:
   - Default
   - TransparentFX

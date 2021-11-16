@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
     public int maxHealthPoints;
     public int damage;
 
+    private float triggerCooldown = 0.5f;
+    private float lastTrigger = -0.5f;
+
     private void Start()
     {
         maxHealthPoints = 15;
@@ -29,16 +32,20 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(Damage dmg)
     {
-        healthPoints -= dmg.damageAmount;
-        if (healthPoints <= 0) Die();
-        hp.UpdateHealth((float)healthPoints / maxHealthPoints);
+        if (Time.time - lastTrigger > triggerCooldown)
+        {
+            lastTrigger = Time.time;
+            
+            healthPoints -= dmg.damageAmount;
+            if (healthPoints <= 0) Die();
+            hp.UpdateHealth((float)healthPoints / maxHealthPoints);
+        }
     }
 
     private void Die()
     {
         hp.UpdateHealth(1f/1f);
         GameManager.instance.IncrementScore();
-        Instantiate(this.gameObject.transform, new Vector3(0,0,0), Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

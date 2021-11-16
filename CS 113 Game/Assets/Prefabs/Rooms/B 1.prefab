@@ -2495,6 +2495,7 @@ GameObject:
   - component: {fileID: 3218157536442076658}
   - component: {fileID: 3218157536442076659}
   - component: {fileID: 3559275006386139144}
+  - component: {fileID: -6674834966010575977}
   m_Layer: 0
   m_Name: B 1
   m_TagString: Untagged
@@ -2554,6 +2555,20 @@ MonoBehaviour:
   room: {fileID: 0}
   prevRoom: {fileID: 0}
   op: 0
+--- !u!114 &-6674834966010575977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218157536442076657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5dc4cacf0a37ee41b3e9fd368f05e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doors: {fileID: 0}
+  frontDoors: {fileID: 0}
 --- !u!1 &3218157536877652849
 GameObject:
   m_ObjectHideFlags: 0
@@ -5392,6 +5407,7 @@ GameObject:
   - component: {fileID: 3218157536890954648}
   - component: {fileID: 3218157536890954655}
   - component: {fileID: 3218157536890954654}
+  - component: {fileID: 6611215823930766603}
   m_Layer: 0
   m_Name: NavFloor
   m_TagString: Untagged
@@ -6979,6 +6995,19 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &6611215823930766603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218157536890954652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50085d73290873845a48b249476ffacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 0}
 --- !u!1 &3218157537047196243
 GameObject:
   m_ObjectHideFlags: 0
@@ -7193,6 +7222,7 @@ GameObject:
   - component: {fileID: 3218157537206600052}
   - component: {fileID: 3218157537206600059}
   - component: {fileID: 3218157537206600058}
+  - component: {fileID: 6506928126558035205}
   m_Layer: 0
   m_Name: NavWalls
   m_TagString: Untagged
@@ -7848,6 +7878,19 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &6506928126558035205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218157537206600056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50085d73290873845a48b249476ffacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 0}
 --- !u!1 &3218157537669878294
 GameObject:
   m_ObjectHideFlags: 0

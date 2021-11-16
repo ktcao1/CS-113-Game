@@ -14,8 +14,6 @@ public class Weapon : MonoBehaviour
     // Cooldown
     private float cooldown = 0.5f;
     private float lastAttack = -0.5f;
-    private float triggerCooldown = 0.5f;
-    private float lastTrigger = -0.5f;
 
     // Upgrade
     public int weaponLevel = 0;
@@ -33,17 +31,13 @@ public class Weapon : MonoBehaviour
     {
         if (collider2D.tag != "Enemy") return;
 
-        if (Time.time - lastTrigger > triggerCooldown)
+        Damage dmg = new Damage
         {
-            lastTrigger = Time.time;
-            Damage dmg = new Damage
-            {
-                damageAmount = damageValue,
-                pushForce = pushForce
-            };
+            damageAmount = damageValue,
+            pushForce = pushForce
+        };
 
-            Enemy enemy = collider2D.GetComponent<Enemy>();
-            enemy.TakeDamage(dmg);
-        }
+        Enemy enemy = collider2D.GetComponent<Enemy>();
+        enemy.TakeDamage(dmg);
     }
 }

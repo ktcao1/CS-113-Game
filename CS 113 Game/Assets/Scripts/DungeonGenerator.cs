@@ -33,7 +33,6 @@ public class DungeonGenerator : MonoBehaviour
         {
             RoomSpawner rs = spawnPointers[0];
             spawnPointers.RemoveAt(0);
-            Debug.Log(rs.openingDirection + " " + rs.ownerRoom);
 
             if (count < 4)
             {

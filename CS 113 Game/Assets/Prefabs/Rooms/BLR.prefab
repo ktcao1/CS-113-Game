@@ -2475,6 +2475,7 @@ GameObject:
   - component: {fileID: 4852993753071127250}
   - component: {fileID: 4852993753071127253}
   - component: {fileID: -8979295672463168684}
+  - component: {fileID: -5656600944460795999}
   m_Layer: 0
   m_Name: BLR
   m_TagString: Untagged
@@ -2531,6 +2532,20 @@ MonoBehaviour:
   room: {fileID: 0}
   prevRoom: {fileID: 0}
   op: 0
+--- !u!114 &-5656600944460795999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4852993753071127251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5dc4cacf0a37ee41b3e9fd368f05e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doors: {fileID: 0}
+  frontDoors: {fileID: 0}
 --- !u!1 &4852993753150034656
 GameObject:
   m_ObjectHideFlags: 0

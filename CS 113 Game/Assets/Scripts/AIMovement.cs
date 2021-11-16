@@ -5,25 +5,33 @@ using UnityEngine.AI;
 
 public class AIMovement : MonoBehaviour
 {
-    [SerializeField] Transform target;
-    NavMeshAgent agent;
+    public Transform agent;
+    public Transform target;
+    public float movespeed;
+    public SpriteRenderer spriteRenderer;
     
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+        agent = GetComponent<Transform>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        target = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
+        movespeed = 2.5f;
     }
 
     void Update()
     {
         if (target != null) 
         {
-            agent.SetDestination(target.position);
-            
-            // Flip sprite
-            if (agent.desiredVelocity.x > 0) agent.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = false;
-            else if (agent.desiredVelocity.x < 0) agent.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = true;
+            spriteRenderer.flipX = (target.transform.position.x < transform.position.x) ? true : false;
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, movespeed * Time.deltaTime);
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision2D)
+    {
+        // if (collision2D.gameObject.tag == "Obstacle")
+        // {
+        //     transform.position = Vector2.Perpendicular
+        // }
     }
 }

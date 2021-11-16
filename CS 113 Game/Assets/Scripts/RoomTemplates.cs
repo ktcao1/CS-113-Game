@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RoomTemplates : MonoBehaviour
 {
@@ -73,7 +74,9 @@ public class RoomTemplates : MonoBehaviour
                 Destroy(destroyedRoom);
             }
 
+            // roomTiles.PlaceTiles();
             finalRooms.Clear();
+            // surface2D.BuildNavMesh();
         }
         else if (removed)
         {

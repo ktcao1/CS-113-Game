@@ -1901,6 +1901,7 @@ GameObject:
   - component: {fileID: 8803781926397424064}
   - component: {fileID: 8803781926397424065}
   - component: {fileID: 8803781926397424070}
+  - component: {fileID: 675172946613417709}
   m_Layer: 0
   m_Name: NavFloor
   m_TagString: Untagged
@@ -3488,6 +3489,19 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &675172946613417709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803781926397424068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50085d73290873845a48b249476ffacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 0}
 --- !u!1 &8803781926764943665
 GameObject:
   m_ObjectHideFlags: 0
@@ -6764,6 +6778,7 @@ GameObject:
   - component: {fileID: 8803781927170262214}
   - component: {fileID: 8803781927170262215}
   - component: {fileID: 8803781927170262212}
+  - component: {fileID: 4923826397425236186}
   m_Layer: 0
   m_Name: NavWalls
   m_TagString: Untagged
@@ -7419,6 +7434,19 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &4923826397425236186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803781927170262266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50085d73290873845a48b249476ffacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 0}
 --- !u!1 &8803781927355832928
 GameObject:
   m_ObjectHideFlags: 0
@@ -8214,6 +8242,7 @@ GameObject:
   - component: {fileID: 8803781927426287300}
   - component: {fileID: 8803781927426287303}
   - component: {fileID: -984338538977812072}
+  - component: {fileID: 3733590975483881513}
   m_Layer: 0
   m_Name: R
   m_TagString: Untagged
@@ -8273,6 +8302,20 @@ MonoBehaviour:
   room: {fileID: 0}
   prevRoom: {fileID: 0}
   op: 0
+--- !u!114 &3733590975483881513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803781927426287301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5dc4cacf0a37ee41b3e9fd368f05e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doors: {fileID: 0}
+  frontDoors: {fileID: 0}
 --- !u!1 &8803781928345146399
 GameObject:
   m_ObjectHideFlags: 0
