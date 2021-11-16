@@ -5474,7 +5474,7 @@ GameObject:
   - component: {fileID: 1149164621108126531}
   - component: {fileID: 1149164621108126588}
   - component: {fileID: -4600178812325212530}
-  - component: {fileID: 2978253217340530205}
+  - component: {fileID: -548286256368227929}
   m_Layer: 0
   m_Name: TBLR
   m_TagString: StartRoom
@@ -5534,7 +5534,7 @@ MonoBehaviour:
   room: {fileID: 0}
   prevRoom: {fileID: 0}
   op: 0
---- !u!114 &2978253217340530205
+--- !u!114 &-548286256368227929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5543,12 +5543,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1149164621108126589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5dc4cacf0a37ee41b3e9fd368f05e62, type: 3}
+  m_Script: {fileID: 11500000, guid: 82e286dbbe6978346abb08c8870957db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   doors: {fileID: 0}
   frontDoors: {fileID: 0}
+  goblin: {fileID: 0}
+  roomCleared: 0
+  roomType: 
   enemiesInRoom: []
+  enemies: {fileID: 0}
 --- !u!1 &1149164621113142453
 GameObject:
   m_ObjectHideFlags: 0

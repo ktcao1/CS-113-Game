@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2656208952056276808}
   - component: {fileID: 3070765728149208378}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3175,7 +3175,7 @@ GameObject:
   - component: {fileID: 3275387832860543644}
   - component: {fileID: 3275387832860543635}
   - component: {fileID: 2000396688969023217}
-  - component: {fileID: 8489272160259942875}
+  - component: {fileID: 7361336915730684073}
   m_Layer: 0
   m_Name: TB
   m_TagString: Untagged
@@ -3235,7 +3235,7 @@ MonoBehaviour:
   room: {fileID: 0}
   prevRoom: {fileID: 0}
   op: 0
---- !u!114 &8489272160259942875
+--- !u!114 &7361336915730684073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3244,11 +3244,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3275387832860543645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5dc4cacf0a37ee41b3e9fd368f05e62, type: 3}
+  m_Script: {fileID: 11500000, guid: 82e286dbbe6978346abb08c8870957db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   doors: {fileID: 0}
   frontDoors: {fileID: 0}
+  goblin: {fileID: 0}
+  roomCleared: 0
+  roomType: 
+  enemiesInRoom: []
+  enemies: {fileID: 0}
 --- !u!1 &3275387833047626959
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,7 +6945,7 @@ GameObject:
   - component: {fileID: 4775924729560951430}
   - component: {fileID: 4738495796518540222}
   - component: {fileID: 4099528250349814137}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8442,7 +8447,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:

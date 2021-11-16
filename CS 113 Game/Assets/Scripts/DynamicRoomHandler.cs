@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ToggleDoors : MonoBehaviour
+public class DynamicRoomHandler : MonoBehaviour
 {
     public GameObject doors, frontDoors;
     public GameObject goblin;

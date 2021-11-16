@@ -26,7 +26,11 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.TakeDamage(new Damage{damageAmount = damage, pushForce = 0});
+            PlayerMovement pm = collision.gameObject.GetComponent<PlayerMovement>();
+            if (!pm.isImmune)
+            {
+                player.TakeDamage(new Damage{damageAmount = damage, pushForce = 0});
+            }
         }
     }
 

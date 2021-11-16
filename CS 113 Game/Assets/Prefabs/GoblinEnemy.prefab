@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5311007248405721921}
   - component: {fileID: 4817462896227461232}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5035679294499464689}
   - component: {fileID: 7637996682646808040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5352890661833287564}
   - component: {fileID: 5352890661833287567}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 7554744542067713843}
   - component: {fileID: 5352890662281043677}
   - component: {fileID: 5352890662281043674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GoblinEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 2
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!1 &7250299467486042601
@@ -335,7 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7192253974814042440}
   - component: {fileID: 5927437474034277770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

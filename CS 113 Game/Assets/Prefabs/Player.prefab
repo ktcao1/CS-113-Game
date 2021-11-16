@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 517477399444782090}
   - component: {fileID: 1380634727}
   - component: {fileID: 1380634726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5427779311076367572}
   - component: {fileID: 5427779311076367575}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 5427779312710727022}
   - component: {fileID: 5427779312710727023}
   - component: {fileID: 5427779312710727009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -297,9 +297,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da9eeb3226fedd45bc5cafc68a0956c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5427779312710727023}
   moveSpeed: 5
-  playerTransform: {fileID: 5427779312710727020}
+  dashLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  isImmune: 0
 --- !u!50 &5427779312710727023
 Rigidbody2D:
   serializedVersion: 4
