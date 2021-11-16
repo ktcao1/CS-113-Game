@@ -13,6 +13,7 @@ TagManager:
   - RoomTiles
   - StartRoom
   - Obstacle
+  - EnemyReferences
   layers:
   - Default
   - TransparentFX

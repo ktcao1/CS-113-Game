@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     // I-Frame dash
     [SerializeField] private LayerMask dashLayerMask;
+    private bool isDashButtonDown = false;
     private float lastDash = -1.5f;
     private float dashCooldown = 1.5f;
     private float immuneTime = 0.5f;
@@ -29,24 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleDash();
-    }
-
-    private void HandleMovement()
-    {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if (movement.x > 0) playerTransform.localScale = new Vector2(1, 1);
-        else if (movement.x < 0) playerTransform.localScale = new Vector2(-1, 1);
-        if (movement != Vector2.zero)
-            lastMoveDir = movement;
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
-    }
-
-    private void HandleDash()
-    {
         // Immunity to enemies while dashing
         if (isImmune && immuneTime > 0) {
             immuneTime -= Time.deltaTime;
@@ -63,26 +49,36 @@ public class PlayerMovement : MonoBehaviour
             phaseTime = 0.2f;
         }
 
-        // Dash logic
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (Time.time - lastDash > dashCooldown)
+        if (Input.GetKeyDown(KeyCode.Space))
+            isDashButtonDown = true;
+    }
+
+    private void FixedUpdate()
+    {
+        if (movement.x > 0) playerTransform.localScale = new Vector2(1, 1);
+        else if (movement.x < 0) playerTransform.localScale = new Vector2(-1, 1);
+        if (movement != Vector2.zero)
+            lastMoveDir = movement;
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+
+        if (isDashButtonDown && Time.time - lastDash > dashCooldown)
+        {
+            lastDash = Time.time;
+            isImmune = true;
+
+            Vector3 dashPosition = transform.position + lastMoveDir * dashAmount;
+            RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, lastMoveDir, dashAmount, dashLayerMask);
+
+            if (raycastHit2D.collider != null) 
             {
-                lastDash = Time.time;
-                isImmune = true;
-
-                Vector3 dashPosition = transform.position + lastMoveDir * dashAmount;
-                RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, lastMoveDir, dashAmount, dashLayerMask);
-
-                if (raycastHit2D.collider != null) 
-                {
-                    rb.MovePosition(raycastHit2D.point);
-                }
-                else
-                {
-                    bc.isTrigger = true;
-                    rb.MovePosition(dashPosition);
-                }
+                rb.MovePosition(raycastHit2D.point);
+            }
+            else
+            {
+                bc.isTrigger = true;
+                rb.MovePosition(dashPosition);
             }
         }
+        isDashButtonDown = false;
     }
 }

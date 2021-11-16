@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
     // Resources
     [SerializeField] private List<Sprite> weaponSprites;
     [SerializeField] private Player player;
+    private RoomTemplates roomTemplates;
 
     // Interactable UI
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject victoryPanel;
 
     // UI
     [SerializeField] private TMP_Text scoreText;
@@ -29,6 +31,11 @@ public class GameManager : MonoBehaviour
         }
 
         instance = this;
+    }
+
+    void Start()
+    {
+        roomTemplates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
     }
 
     // TODO: Change into a full menu in the future
@@ -49,6 +56,11 @@ public class GameManager : MonoBehaviour
     public void EndScreen()
     {
         gameOverPanel.SetActive(true);
+    }
+
+    public void VictoryScreen()
+    {
+        victoryPanel.SetActive(true);
     }
 
     public void RestartScene()
@@ -72,6 +84,11 @@ public class GameManager : MonoBehaviour
     {
         int score = Int32.Parse(scoreText.text.Substring(16)) + 1;
         scoreText.text = "Goblins Killed: " + score;
+        if (score == roomTemplates.rooms.Count - 1)
+        {
+            Time.timeScale = 0;
+            VictoryScreen();
+        }
     }
 
     // TODO

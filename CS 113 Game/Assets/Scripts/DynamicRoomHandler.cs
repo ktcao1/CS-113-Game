@@ -12,9 +12,11 @@ public class DynamicRoomHandler : MonoBehaviour
     public List<GameObject> enemiesInRoom = new List<GameObject>();
     public GameObject enemies;
 
+    public EnemyReferences enemyReferences;
+
     void Start()
     {
-        goblin = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/GoblinEnemy.prefab", typeof(GameObject));
+        enemyReferences = GameObject.FindGameObjectWithTag("EnemyReferences").GetComponent<EnemyReferences>();
         // Set room type
         roomType = "Enemies";
 
@@ -30,7 +32,8 @@ public class DynamicRoomHandler : MonoBehaviour
         frontDoors.SetActive(false);
 
         // Spawn random amount of enemies
-        if (goblin != null)
+        goblin = enemyReferences.enemyDict["goblin"];
+        if (goblin != null && gameObject.name != "TBLR")
         {
             GameObject go = Instantiate(goblin, this.gameObject.transform.position, Quaternion.identity);
             go.transform.parent = enemies.transform;
