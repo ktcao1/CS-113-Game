@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     private float damageCoolDown = 1f;
     private float damageLastTaken = -1f;
 
+    // Room
+    public GameObject currentRoom;
+
     private void Start()
     {
         // TODO: Change these when rebinding and saving/loading is implemented
@@ -28,10 +31,13 @@ public class Player : MonoBehaviour
         rightKey = KeyCode.D;
         fireKey = KeyCode.F;
 
+        // Initialize stats
         maxHealthPoints = 5;
         healthPoints = maxHealthPoints;
-
         hp.SetMaxHealth(maxHealthPoints);
+
+        // Initialize room
+        currentRoom = GameObject.FindGameObjectWithTag("StartRoom");
     }
 
     private void Update()

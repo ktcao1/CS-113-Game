@@ -19,8 +19,8 @@ public class Portal : MonoBehaviour
         {
             float x = portalExit.GetComponentInParent<AddRoom>().room.transform.position.x;
             float y = portalExit.GetComponentInParent<AddRoom>().room.transform.position.y;
-
-            Debug.Log("In room: " + portalExit.GetComponentInParent<AddRoom>().room.name);
+            
+            player.currentRoom = portalExit.GetComponentInParent<AddRoom>().room;
             
             player.transform.position = portalExit.transform.position;
             float saveZ = Camera.main.transform.position.z;

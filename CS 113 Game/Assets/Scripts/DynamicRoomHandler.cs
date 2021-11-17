@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DynamicRoomHandler : MonoBehaviour
 {
+    public Player player;
     public GameObject doors, frontDoors;
     public GameObject goblin;
     public bool roomCleared = false;
@@ -16,6 +17,7 @@ public class DynamicRoomHandler : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         enemyReferences = GameObject.FindGameObjectWithTag("EnemyReferences").GetComponent<EnemyReferences>();
         // Set room type
         roomType = "Enemies";
@@ -42,6 +44,21 @@ public class DynamicRoomHandler : MonoBehaviour
 
     void Update()
     {
-        
+        if (roomCleared) return;
+        else if (enemies.transform.childCount == 0)
+        {
+            GameObject roomPortals = player.currentRoom.transform.Find("Portals").gameObject;
+            roomPortals.SetActive(true);
+            doors.SetActive(false);
+            frontDoors.SetActive(false);
+            roomCleared = true;
+        }
+        else if (player.currentRoom == gameObject && gameObject.name != "TBLR")
+        {
+            GameObject roomPortals = player.currentRoom.transform.Find("Portals").gameObject;
+            roomPortals.SetActive(false);
+            doors.SetActive(true);
+            frontDoors.SetActive(true);
+        }
     }
 }
