@@ -330,6 +330,8 @@ MonoBehaviour:
   txt: {fileID: 0}
   originalText: 
   loop: 1
+  typeDone: 0
+  fadingOut: 1
 --- !u!1 &41542155
 GameObject:
   m_ObjectHideFlags: 0
@@ -8236,7 +8238,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 500}
-  m_SizeDelta: {x: 200, y: 100}
+  m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1030181532
 MonoBehaviour:
@@ -8264,8 +8266,8 @@ MonoBehaviour:
 
     Pause - Esc'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
+  m_sharedMaterial: {fileID: -3939358481468211089, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8289,7 +8291,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.25
+  m_fontSize: 60.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9843,8 +9845,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 400, y: 50}
+  m_AnchoredPosition: {x: -100, y: 0}
+  m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2117148471
 MonoBehaviour:
@@ -9868,8 +9870,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Goblins Killed: 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
+  m_sharedMaterial: {fileID: -3939358481468211089, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9893,7 +9895,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9950,10 +9952,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 517477399444782090, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -993536727369214721, guid: 8a819dc2d6e95584e9e04a788d224721, type: 3}
     - target: {fileID: 5070879773632559960, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
       propertyPath: hp
       value: 
       objectReference: {fileID: 178037603}
+    - target: {fileID: 5427779311076367575, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5945562029892714144, guid: eb576c2e92fd8cf498903a94272793bc, type: 3}
     - target: {fileID: 5427779312710727020, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -10009,6 +10019,18 @@ PrefabInstance:
     - target: {fileID: 5427779312710727022, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
       propertyPath: dashLayerMask.m_Bits
       value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128572714262463005, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128572714262463005, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128572714262463005, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e2f12cb1a2baf84e8fe3844f72967d4, type: 3}
