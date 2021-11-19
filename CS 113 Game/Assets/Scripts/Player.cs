@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.isLoading) return;
+        
         if (Input.GetKeyDown(fireKey))
         {
             weapon.Attack();

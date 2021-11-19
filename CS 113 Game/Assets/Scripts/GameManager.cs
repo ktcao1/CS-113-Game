@@ -13,11 +13,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Sprite> weaponSprites;
     [SerializeField] private Player player;
     private RoomTemplates roomTemplates;
+    public bool isLoading = true;
 
     // Interactable UI
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject victoryPanel;
+    [SerializeField] private GameObject loadingPanel;
+    private Animator pausePanelAnim;
 
     // UI
     [SerializeField] private TMP_Text scoreText;
@@ -36,21 +39,29 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         roomTemplates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        pausePanelAnim = pausePanel.GetComponent<Animator>();
+        loadingPanel.SetActive(true);
     }
 
     // TODO: Change into a full menu in the future
     public void PauseGame()
     {
-        if (pausePanel.activeSelf)
+        if (pausePanelAnim.GetBool("show"))
         {
-            pausePanel.SetActive(false);
             Time.timeScale = 1;
+            pausePanelAnim.SetBool("show", false);
         }
         else
         {
-            pausePanel.SetActive(true);
             Time.timeScale = 0;
+            pausePanelAnim.SetBool("show", true);
         }
+    }
+
+    public void ReturnToTitle()
+    {
+        Time.timeScale = 1;
+        StartCoroutine(LoadSceneAsync("TitleScene"));
     }
 
     public void EndScreen()
@@ -65,12 +76,12 @@ public class GameManager : MonoBehaviour
 
     public void RestartScene()
     {
-        StartCoroutine(LoadSceneAsync());
+        StartCoroutine(LoadSceneAsync("SampleScene"));
     }
 
-    IEnumerator LoadSceneAsync()
+    IEnumerator LoadSceneAsync(string scene)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SampleScene");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
