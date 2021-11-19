@@ -43,6 +43,14 @@ public class GameManager : MonoBehaviour
         loadingPanel.SetActive(true);
     }
 
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus && !isLoading && !pausePanelAnim.GetBool("show"))
+        {
+            PauseGame();
+        }
+    }
+
     // TODO: Change into a full menu in the future
     public void PauseGame()
     {
