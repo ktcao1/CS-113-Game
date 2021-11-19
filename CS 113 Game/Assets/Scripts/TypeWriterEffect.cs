@@ -21,7 +21,7 @@ public class TypeWriterEffect : MonoBehaviour
         StartCoroutine(ShowText());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (typeDone)
         {
