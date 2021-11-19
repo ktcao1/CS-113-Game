@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
+    public TypeWriterEffect typeWriter;
+
     void Update()
     {
-        if (Input.anyKeyDown) StartScene();
+        if (typeWriter.typeDone && Input.anyKeyDown) StartScene();
     }
 
     public void StartScene()
