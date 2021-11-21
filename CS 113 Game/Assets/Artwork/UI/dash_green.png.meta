@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 5ed635aa2d346ee4f99887578fc4cabe
+guid: dfca21c7e4d29464ca2285d5c2f4b139
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9213113170473765326
-    second: circle_button-Sheet_0
-  - first:
-      213: -7060590915871913019
-    second: circle_button-Sheet_1
+      213: -7058311894522549564
+    second: dash_green
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,13 +94,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: circle_button-Sheet_0
+      name: dash_green
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 59
+        y: 50
+        width: 80
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,29 +108,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec9cf898d9d8bdf70800000000000000
-      internalID: 9213113170473765326
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: circle_button-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cbca1b78fdb30e90800000000000000
-      internalID: -7060590915871913019
+      spriteID: 4caa11d7ab6db0e90800000000000000
+      internalID: -7058311894522549564
       vertices: []
       indices: 
       edges: []

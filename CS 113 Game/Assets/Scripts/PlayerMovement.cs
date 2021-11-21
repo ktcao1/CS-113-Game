@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     private Vector2 movement;
+    private Player player;
     private Transform playerTransform;
     private Rigidbody2D rb;
     private BoxCollider2D bc;
@@ -21,8 +22,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isImmune = false;
     private float dashAmount = 1.5f;
 
+    // Animator controllers
+    [SerializeField] private Animator upAnim, downAnim, leftAnim, rightAnim, dashAnim;
+
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         bc = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
@@ -32,8 +37,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameManager.instance.isLoading) return;
         
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        upAnim.SetBool("press", Input.GetKey(player.upKey) ? true : false);
+        downAnim.SetBool("press", Input.GetKey(player.downKey) ? true : false);
+        leftAnim.SetBool("press", Input.GetKey(player.leftKey) ? true : false);
+        rightAnim.SetBool("press", Input.GetKey(player.rightKey) ? true : false);
+
+        movement.x = (Input.GetKey(player.rightKey) ? 1 : 0) - (Input.GetKey(player.leftKey) ? 1 : 0);
+        movement.y = (Input.GetKey(player.upKey) ? 1 : 0) - (Input.GetKey(player.downKey) ? 1 : 0);
 
         // Immunity to enemies while dashing
         if (isImmune && immuneTime > 0) {
@@ -42,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         else {
             isImmune = false;
             immuneTime = 0.5f;
+            dashAnim.SetBool("press", false);
         }
         if (bc.isTrigger && phaseTime > 0) {
             phaseTime -= Time.deltaTime;
@@ -51,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             phaseTime = 0.2f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(player.dashKey))
             isDashButtonDown = true;
     }
 
@@ -65,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isDashButtonDown && Time.time - lastDash > dashCooldown)
         {
+            dashAnim.SetBool("press", true);
             lastDash = Time.time;
             isImmune = true;
 

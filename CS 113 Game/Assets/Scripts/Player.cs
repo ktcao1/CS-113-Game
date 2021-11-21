@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
 
     // Inputs
     public KeyCode upKey, downKey, leftKey, rightKey;
-    public KeyCode fireKey;
+    public KeyCode attackKey, interactKey, dashKey;
     public KeyCode menuKey = KeyCode.Escape;
+    [SerializeField] private Animator attackAnim, interactAnim;
 
     // Stats and Combat
     private int healthPoints;
@@ -29,7 +30,10 @@ public class Player : MonoBehaviour
         downKey = KeyCode.S;
         leftKey = KeyCode.A;
         rightKey = KeyCode.D;
-        fireKey = KeyCode.F;
+
+        attackKey = KeyCode.F;
+        interactKey = KeyCode.E;
+        dashKey = KeyCode.Space;
 
         // Initialize stats
         maxHealthPoints = 5;
@@ -42,9 +46,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        attackAnim.SetBool("press", Input.GetKey(attackKey) ? true : false);
+        interactAnim.SetBool("press", Input.GetKey(interactKey) ? true : false);
+
         if (GameManager.instance.isLoading) return;
         
-        if (Input.GetKeyDown(fireKey))
+        if (Input.GetKeyDown(attackKey))
         {
             weapon.Attack();
         }
