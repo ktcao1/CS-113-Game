@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private Animator animator;
+    [SerializeField] private Animator attackAnim;
 
     // Damage
     public int damageValue = 5;
@@ -17,6 +18,18 @@ public class Weapon : MonoBehaviour
 
     // Upgrade
     public int weaponLevel = 0;
+
+    void Update()
+    {
+        if (Time.time - lastAttack <= cooldown)
+        {
+            attackAnim.SetBool("press", true);
+        }
+        else
+        {
+            attackAnim.SetBool("press", false);
+        }
+    }
 
     public void Attack()
     {

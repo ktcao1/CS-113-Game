@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private HealthBar hp;
     [SerializeField] private Weapon weapon;
 
     // Inputs
     public KeyCode upKey, downKey, leftKey, rightKey;
     public KeyCode attackKey, interactKey, dashKey;
     public KeyCode menuKey = KeyCode.Escape;
-    [SerializeField] private Animator attackAnim, interactAnim;
+    [SerializeField] private Animator interactAnim;
+    [SerializeField] private Image interactIcon;
+    [SerializeField] private Sprite interactSprite, greenInteractSprite;
 
     // Stats and Combat
     private int healthPoints;
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
         // Initialize stats
         maxHealthPoints = 5;
         healthPoints = maxHealthPoints;
-        hp.SetMaxHealth(maxHealthPoints);
+        ZeldaHealthBar.instance.SetupHearts(maxHealthPoints);
 
         // Initialize room
         currentRoom = GameObject.FindGameObjectWithTag("StartRoom");
@@ -46,8 +48,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        attackAnim.SetBool("press", Input.GetKey(attackKey) ? true : false);
         interactAnim.SetBool("press", Input.GetKey(interactKey) ? true : false);
+        interactIcon.sprite = interactAnim.GetBool("press") ? greenInteractSprite : interactSprite;
 
         if (GameManager.instance.isLoading) return;
         
@@ -68,9 +70,8 @@ public class Player : MonoBehaviour
         if (Time.time - damageLastTaken > damageCoolDown)
         {
             damageLastTaken = Time.time;
-            healthPoints -= dmg.damageAmount;
-            if (healthPoints <= 0) Die();
-            hp.SetHealth(Math.Max(healthPoints, 0));
+            ZeldaHealthBar.instance.RemoveHearts(dmg.damageAmount);
+            if (ZeldaHealthBar.instance.currentHearts <= 0) Die();
         }
     }
 

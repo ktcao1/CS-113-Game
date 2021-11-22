@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Animator controllers
     [SerializeField] private Animator upAnim, downAnim, leftAnim, rightAnim, dashAnim;
+    [SerializeField] private Image icon;
+    [SerializeField] private Sprite dashSprite, greenDashSprite;
 
     private void Start()
     {
@@ -41,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         downAnim.SetBool("press", Input.GetKey(player.downKey) ? true : false);
         leftAnim.SetBool("press", Input.GetKey(player.leftKey) ? true : false);
         rightAnim.SetBool("press", Input.GetKey(player.rightKey) ? true : false);
+
+        icon.sprite = dashAnim.GetBool("press") ? greenDashSprite : dashSprite;
 
         movement.x = (Input.GetKey(player.rightKey) ? 1 : 0) - (Input.GetKey(player.leftKey) ? 1 : 0);
         movement.y = (Input.GetKey(player.upKey) ? 1 : 0) - (Input.GetKey(player.downKey) ? 1 : 0);
