@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator attackAnim;
+    [SerializeField] private Image attackIcon;
+    [SerializeField] private Sprite attackSprite, greenAttackSprite;
 
     // Damage
     public int damageValue = 5;
@@ -24,10 +27,12 @@ public class Weapon : MonoBehaviour
         if (Time.time - lastAttack <= cooldown)
         {
             attackAnim.SetBool("press", true);
+            attackIcon.sprite = greenAttackSprite;
         }
         else
         {
             attackAnim.SetBool("press", false);
+            attackIcon.sprite = attackSprite;
         }
     }
 

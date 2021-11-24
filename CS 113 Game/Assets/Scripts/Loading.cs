@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Loading : MonoBehaviour
 {
+    [SerializeField] GameObject musicDevice;
     private float waitTime = 4f;
 
     void Update()
@@ -11,6 +12,7 @@ public class Loading : MonoBehaviour
         if (waitTime <= 0)
         {
             GameManager.instance.isLoading = false;
+            musicDevice.SetActive(true);
             this.gameObject.SetActive(false);
         }
         else

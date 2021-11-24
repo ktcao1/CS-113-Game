@@ -12,10 +12,15 @@ public class ZeldaHealthBar : MonoBehaviour
     public float currentHearts;
     HeartContainer currentContainer;
 
-    void Start()
+    private void Awake()
     {
+        if (ZeldaHealthBar.instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         instance = this;
-        heartContainers = new List<GameObject>();
     }
 
     public void SetupHearts(int heartsIn)

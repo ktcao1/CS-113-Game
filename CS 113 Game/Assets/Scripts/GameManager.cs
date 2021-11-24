@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     // Resources
     [SerializeField] private List<Sprite> weaponSprites;
     [SerializeField] private Player player;
+    [SerializeField] private AudioSource gameMusic;
     private RoomTemplates roomTemplates;
     public bool isLoading = true;
 
@@ -58,11 +59,13 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
             pausePanelAnim.SetBool("show", false);
+            gameMusic.UnPause();
         }
         else
         {
             Time.timeScale = 0;
             pausePanelAnim.SetBool("show", true);
+            gameMusic.Pause();
         }
     }
 
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void EndScreen()
     {
+        gameMusic.Pause();
         gameOverPanel.SetActive(true);
     }
 
