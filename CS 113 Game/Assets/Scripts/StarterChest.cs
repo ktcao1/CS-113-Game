@@ -7,6 +7,7 @@ public class StarterChest : MonoBehaviour
     public Player player;
     public Weapon weapon;
     public bool opened = false;
+    public bool inWindow = false;
     public Sprite openedChestSprite;
 
     // UI
@@ -41,6 +42,7 @@ public class StarterChest : MonoBehaviour
     public void CloseWindow()
     {
         currentWindow.SetActive(false);
+        inWindow = false;
     }
 
     public void SwitchWindowStarter()
@@ -98,9 +100,15 @@ public class StarterChest : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if (!opened && collider.tag == "Player" && Input.GetKeyDown(player.interactKey))
+        if (!opened && collider.tag == "Player" && Input.GetKeyDown(player.interactKey) && !inWindow)
         {
+            inWindow = true;
             CashOut();
+        }
+        else if (!opened && collider.tag == "Player" && Input.GetKeyDown(player.interactKey) && inWindow)
+        {
+            inWindow = false;
+            CloseWindow();
         }
     }
 
