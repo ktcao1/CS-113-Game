@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     private Vector2 movement;
     private Player player;
-    private Transform playerTransform;
     private Rigidbody2D rb;
     private BoxCollider2D bc;
     private Vector3 lastMoveDir;
@@ -27,18 +26,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator upAnim, downAnim, leftAnim, rightAnim, dashAnim;
     [SerializeField] private Image icon;
     [SerializeField] private Sprite dashSprite, greenDashSprite;
+    [SerializeField] private Animator walkAnim;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         bc = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
-        if (GameManager.instance.isLoading) return;
+        if (GameManager.instance.isLoading || GameManager.instance.disableInputs) return;
         
         upAnim.SetBool("press", Input.GetKey(player.upKey) ? true : false);
         downAnim.SetBool("press", Input.GetKey(player.downKey) ? true : false);
@@ -49,6 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
         movement.x = (Input.GetKey(player.rightKey) ? 1 : 0) - (Input.GetKey(player.leftKey) ? 1 : 0);
         movement.y = (Input.GetKey(player.upKey) ? 1 : 0) - (Input.GetKey(player.downKey) ? 1 : 0);
+
+        if (movement != Vector2.zero) walkAnim.SetBool("moving", true);
+        else walkAnim.SetBool("moving", false);
 
         // Immunity to enemies while dashing
         if (isImmune && immuneTime > 0) {
@@ -73,8 +75,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movement.x > 0) playerTransform.localScale = new Vector2(1, 1);
-        else if (movement.x < 0) playerTransform.localScale = new Vector2(-1, 1);
+        if (movement.x > 0) player.transform.rotation = Quaternion.Euler(0, 0, 0);
+        else if (movement.x < 0) player.transform.rotation = Quaternion.Euler(0, 180, 0);
         if (movement != Vector2.zero)
             lastMoveDir = movement;
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);

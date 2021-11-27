@@ -9,6 +9,10 @@ public class AIMovement : MonoBehaviour
     public Transform target;
     public float movespeed;
     public SpriteRenderer spriteRenderer;
+
+    public Damage damage;
+    public bool pushed = false;
+    public Vector3 pushedDestination;
     
     void Start()
     {
@@ -20,18 +24,28 @@ public class AIMovement : MonoBehaviour
 
     void Update()
     {
-        if (target != null) 
+        if (target != null && !pushed) 
         {
             spriteRenderer.flipX = (target.transform.position.x < transform.position.x) ? true : false;
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, movespeed * Time.deltaTime);
         }
+        else if (target != null && pushed && Vector3.Distance(transform.position, pushedDestination) >= 0.1f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, pushedDestination, (movespeed+1) * Time.deltaTime);
+            GetComponent<BoxCollider2D>().isTrigger = true;
+        }
+        else if (target != null && pushed && Vector3.Distance(transform.position, pushedDestination) < 0.1f)
+        {
+            pushed = false;
+            GetComponent<BoxCollider2D>().isTrigger = false;
+        }
     }
 
-    private void OnCollisionStay2D(Collision2D collision2D)
+    public void PushForce(Damage dmg)
     {
-        // if (collision2D.gameObject.tag == "Obstacle")
-        // {
-        //     transform.position = Vector2.Perpendicular
-        // }
+        if (!target.GetComponent<Player>().hasKnockBack) return;
+        pushed = true;
+        damage = dmg;
+        pushedDestination = transform.position + (transform.position - damage.origin).normalized * damage.pushForce;
     }
 }

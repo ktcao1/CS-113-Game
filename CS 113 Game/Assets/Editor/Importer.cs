@@ -15,6 +15,7 @@ public class Importer: AssetPostprocessor {
  
         textureImporter.filterMode = FilterMode.Point;
         textureImporter.spritePixelsPerUnit = 16;
+        textureImporter.textureCompression = TextureImporterCompression.Uncompressed; 
         //textureImporter.filterMode = FilterMode.Bilinear;
         //textureImporter.filterMode = FilterMode.Trilinear;
     }

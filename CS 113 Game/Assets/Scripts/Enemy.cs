@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
             
             healthPoints -= dmg.damageAmount;
             if (healthPoints <= 0) Die();
+            GetComponent<AIMovement>().PushForce(dmg);
             hp.UpdateHealth((float)healthPoints / maxHealthPoints);
         }
     }

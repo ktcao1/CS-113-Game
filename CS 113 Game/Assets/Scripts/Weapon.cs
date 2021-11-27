@@ -6,14 +6,17 @@ using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private Animator animator;
+    [SerializeField] private BoxCollider2D weaponCollider;
     [SerializeField] private Animator attackAnim;
-    [SerializeField] private Image attackIcon;
-    [SerializeField] private Sprite attackSprite, greenAttackSprite;
+    [SerializeField] private GameObject arrowPrefab;
+    public Animator animator;
+    public Image attackIcon;
+    public Sprite attackSprite, greenAttackSprite;
+    public Sprite bowSprite, greenBowSprite;
 
     // Damage
     public int damageValue = 5;
-    public float pushForce = 2f;
+    public float pushForce;
 
     // Cooldown
     private float cooldown = 0.5f;
@@ -22,17 +25,22 @@ public class Weapon : MonoBehaviour
     // Upgrade
     public int weaponLevel = 0;
 
+    // Current weapon (bow or dagger)
+    public string weaponType = "dagger";
+
     void Update()
     {
         if (Time.time - lastAttack <= cooldown)
         {
             attackAnim.SetBool("press", true);
-            attackIcon.sprite = greenAttackSprite;
+            if (weaponType == "dagger") attackIcon.sprite = greenAttackSprite;
+            else if (weaponType == "bow") attackIcon.sprite = greenBowSprite;
         }
         else
         {
             attackAnim.SetBool("press", false);
-            attackIcon.sprite = attackSprite;
+            if (weaponType == "dagger") attackIcon.sprite = attackSprite;
+            else if (weaponType == "bow") attackIcon.sprite = bowSprite;
         }
     }
 
@@ -41,18 +49,37 @@ public class Weapon : MonoBehaviour
         if (Time.time - lastAttack > cooldown)
         {
             lastAttack = Time.time;
-            animator.SetTrigger("Attack");
+            if (weaponType == "dagger") animator.SetTrigger("Attack");
+            else if (weaponType == "bow") animator.SetTrigger("Shoot");
         }
+    }
+
+    public void CompleteShoot()
+    {
+        Vector3 mouse_pos = Input.mousePosition;
+        mouse_pos.z = 5.23f;
+        Vector3 object_pos = Camera.main.WorldToScreenPoint(transform.position);
+        mouse_pos.x = mouse_pos.x - object_pos.x;
+        mouse_pos.y = mouse_pos.y - object_pos.y;
+        float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
+
+        GameObject go = Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
+        Arrow goArrow = go.GetComponent<Arrow>();
+        goArrow.shootDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        goArrow.shootDirection.z = 0;
+        goArrow.shootDirection.Normalize();
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (collider2D.tag != "Enemy") return;
+        if (collider2D.tag != "Enemy" || weaponType == "bow") return;
 
+        pushForce = (player.hasKnockBack) ? 1f : 0f;
         Damage dmg = new Damage
         {
             damageAmount = damageValue,
-            pushForce = pushForce
+            pushForce = pushForce,
+            origin = player.transform.position
         };
 
         Enemy enemy = collider2D.GetComponent<Enemy>();

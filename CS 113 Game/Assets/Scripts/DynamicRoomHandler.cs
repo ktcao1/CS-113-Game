@@ -42,7 +42,12 @@ public class DynamicRoomHandler : MonoBehaviour
     void Update()
     {
         if (roomCleared) return;
-        if (player.currentRoom == gameObject && gameObject.name != "TBLR" && !doorsActive)
+        if (gameObject.name == "TBLR") 
+        {
+            roomCleared = true;
+            GameManager.instance.roomsCleared++;
+        }
+        else if (player.currentRoom == gameObject && !doorsActive)
         {
             GameObject roomPortals = player.currentRoom.transform.Find("Portals").gameObject;
             roomPortals.SetActive(false);
@@ -57,8 +62,9 @@ public class DynamicRoomHandler : MonoBehaviour
             doors.SetActive(false);
             frontDoors.SetActive(false);
             roomCleared = true;
+            GameManager.instance.roomsCleared++;
         }
-        else if (player.currentRoom == gameObject && gameObject.name != "TBLR" && doorsActive && !enemiesSpawned)
+        else if (player.currentRoom == gameObject && doorsActive && !enemiesSpawned)
         {
             int randGoblins = Random.Range(1, 4);
             Vector3 roomCenter = this.gameObject.transform.position;

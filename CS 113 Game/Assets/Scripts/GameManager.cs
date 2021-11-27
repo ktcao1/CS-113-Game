@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Sprite> weaponSprites;
     [SerializeField] private Player player;
     [SerializeField] private AudioSource gameMusic;
-    private RoomTemplates roomTemplates;
+    [SerializeField] private Image musicSymbol;
+    [SerializeField] private Sprite musicOn, musicOff;
+    public int roomsCleared = 0;
+    public bool disableInputs = false;
     public bool isLoading = true;
+    public bool musicPaused = false;
 
     // Interactable UI
     [SerializeField] private GameObject pausePanel;
@@ -39,7 +44,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        roomTemplates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         pausePanelAnim = pausePanel.GetComponent<Animator>();
         loadingPanel.SetActive(true);
     }
@@ -55,17 +59,35 @@ public class GameManager : MonoBehaviour
     // TODO: Change into a full menu in the future
     public void PauseGame()
     {
+        if (disableInputs) return;
+
         if (pausePanelAnim.GetBool("show"))
         {
             Time.timeScale = 1;
             pausePanelAnim.SetBool("show", false);
-            gameMusic.UnPause();
+            if (!musicPaused) gameMusic.UnPause();
         }
         else
         {
             Time.timeScale = 0;
             pausePanelAnim.SetBool("show", true);
             gameMusic.Pause();
+        }
+    }
+
+    public void PauseMusic()
+    {
+        if (!musicPaused)
+        {
+            musicSymbol.sprite = musicOff;
+            gameMusic.Pause();
+            musicPaused = true;
+        }
+        else
+        {
+            musicSymbol.sprite = musicOn;
+            gameMusic.UnPause();
+            musicPaused = false;
         }
     }
 
@@ -83,6 +105,8 @@ public class GameManager : MonoBehaviour
 
     public void VictoryScreen()
     {
+        disableInputs = true;
+        gameMusic.Pause();
         victoryPanel.SetActive(true);
     }
 
@@ -107,11 +131,11 @@ public class GameManager : MonoBehaviour
     {
         int score = Int32.Parse(scoreText.text.Substring(16)) + 1;
         scoreText.text = "Goblins Killed: " + score;
-        if (score == roomTemplates.rooms.Count - 1)
-        {
-            Time.timeScale = 0;
-            VictoryScreen();
-        }
+        // if (score == roomsCleared - 1)
+        // {
+        //     Time.timeScale = 0;
+        //     VictoryScreen();
+        // }
     }
 
     // TODO

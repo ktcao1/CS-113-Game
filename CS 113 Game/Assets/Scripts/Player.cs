@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private int maxHealthPoints;
     private float damageCoolDown = 1f;
     private float damageLastTaken = -1f;
+    public bool hasKnockBack = false;
 
     // Room
     public GameObject currentRoom;
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.disableInputs) return;
+
         interactAnim.SetBool("press", Input.GetKey(interactKey) ? true : false);
         interactIcon.sprite = interactAnim.GetBool("press") ? greenInteractSprite : interactSprite;
 

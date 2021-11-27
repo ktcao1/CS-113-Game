@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 4973738358236136582}
   m_Layer: 7
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7010,7 +7010,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2141199261
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -11394,10 +11394,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e286dbbe6978346abb08c8870957db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   doors: {fileID: 0}
   frontDoors: {fileID: 0}
   goblin: {fileID: 0}
   roomCleared: 0
+  enemiesSpawned: 0
+  doorsActive: 0
   roomType: 
   enemiesInRoom: []
   enemies: {fileID: 0}

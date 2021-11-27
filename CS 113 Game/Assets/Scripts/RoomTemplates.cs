@@ -80,7 +80,10 @@ public class RoomTemplates : MonoBehaviour
         }
         else if (removed)
         {
-            return;
+            if (rooms.Count == GameManager.instance.roomsCleared)
+            {
+                GameManager.instance.VictoryScreen();
+            }
         }
         else
         {

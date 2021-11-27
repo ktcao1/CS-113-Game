@@ -86,7 +86,7 @@ public class ZeldaHealthBar : MonoBehaviour
         currentContainer = heartContainers[0].GetComponent<HeartContainer>();
 
         totalHearts++;
-        currentHearts = totalHearts;
+        currentHearts++;
         SetCurrentHealth(currentHearts);
     }
 }
