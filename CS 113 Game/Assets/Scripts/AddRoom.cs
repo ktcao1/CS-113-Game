@@ -5,9 +5,17 @@ using UnityEngine;
 public class AddRoom : MonoBehaviour
 {
     private RoomTemplates templates;
+    public Player player;
     public GameObject room;
     public GameObject prevRoom;
+    public GameObject mmSquare;
     public char op;
+
+    void Awake()
+    {
+        mmSquare = transform.Find("MM_square").gameObject;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
 
     void Start()
     {
@@ -16,4 +24,17 @@ public class AddRoom : MonoBehaviour
         templates.rooms.Add(this.gameObject);
     }
 
+    void Update()
+    {
+        if (player.currentRoom == gameObject)
+        {
+            SpriteRenderer mmSR = mmSquare.GetComponent<SpriteRenderer>();
+            mmSR.color = new Color(mmSR.color.r, mmSR.color.g, mmSR.color.b, 0.9f);
+        }
+        else
+        {
+            SpriteRenderer mmSR = mmSquare.GetComponent<SpriteRenderer>();
+            mmSR.color = new Color(mmSR.color.r, mmSR.color.g, mmSR.color.b, 0.5f);
+        }
+    }
 }

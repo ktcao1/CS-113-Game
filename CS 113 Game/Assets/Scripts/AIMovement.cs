@@ -19,7 +19,7 @@ public class AIMovement : MonoBehaviour
         agent = GetComponent<Transform>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
-        movespeed = 2.5f;
+        movespeed = 2f;
     }
 
     void Update()

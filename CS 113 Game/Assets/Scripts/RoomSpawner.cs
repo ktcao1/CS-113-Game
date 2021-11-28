@@ -50,6 +50,13 @@ public class RoomSpawner : MonoBehaviour
         return spawnPoints.Find(spawnNum.ToString()).gameObject.GetComponent<RoomSpawner>();
     }
 
+    public static GameObject FindMMSpawnPoint(GameObject gameObject, int spawnNum)
+    {
+        Transform tf = gameObject.transform;
+        Transform spawnPoint = tf.Find(spawnNum.ToString());
+        return spawnPoint.gameObject;
+    }
+
     public void Spawn()
     {
         if (spawned == false)
@@ -60,6 +67,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'B';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 1).transform.position;
                 FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 2);
                 if (rand == 0) openings = new List<string>{"B"};
@@ -72,6 +80,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'T';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 2).transform.position;
                 FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 1);
                 if (rand == 0) openings = new List<string>{"T"};
@@ -85,6 +94,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'L';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 3).transform.position;
                 FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 4);
                 if (rand == 0) openings = new List<string>{"L"};
@@ -97,6 +107,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'R';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 4).transform.position;
                 FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 3);
                 if (rand == 0) openings = new List<string>{"R"};
@@ -118,6 +129,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'B';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 1).transform.position;
                 FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 2); // Connect current portal to other room
                 if (rand == 1) openings = new List<string>{"B", "R"};
@@ -129,6 +141,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'T';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 2).transform.position;
                 FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 1);
                 if (rand == 1) openings = new List<string>{"T", "B"};
@@ -141,6 +154,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'L';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 3).transform.position;
                 FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 4);
                 if (rand == 1) openings = new List<string>{"L", "R"};
@@ -152,6 +166,7 @@ public class RoomSpawner : MonoBehaviour
                 GameObject go = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                 go.GetComponent<AddRoom>().op = 'R';
                 go.GetComponent<AddRoom>().prevRoom = ownerRoom;
+                go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 4).transform.position;
                 FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                 portal.portalExit = FindPortalExit(go, 3);
                 if (rand == 1) openings = new List<string>{"R", "B"};
@@ -177,6 +192,7 @@ public class RoomSpawner : MonoBehaviour
                     // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 1)
                     {
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 1).transform.position;
                         FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 4).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 2); // Connect current portal to other room
@@ -184,6 +200,7 @@ public class RoomSpawner : MonoBehaviour
                     }
                     else
                     {   
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 3).transform.position;
                         FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 2).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 4);
@@ -198,6 +215,7 @@ public class RoomSpawner : MonoBehaviour
                     // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 1)
                     {
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 1).transform.position;
                         FindPortal(go, 2).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 3).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 2);
@@ -205,6 +223,7 @@ public class RoomSpawner : MonoBehaviour
                     }
                     else
                     {   
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 4).transform.position;
                         FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 2).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 3);
@@ -219,6 +238,7 @@ public class RoomSpawner : MonoBehaviour
                     // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 2)
                     {
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 2).transform.position;
                         FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 4).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 1);
@@ -226,6 +246,7 @@ public class RoomSpawner : MonoBehaviour
                     }
                     else
                     {   
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 3).transform.position;
                         FindPortal(go, 4).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 1).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 4);
@@ -240,6 +261,7 @@ public class RoomSpawner : MonoBehaviour
                     // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 2)
                     {
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 2).transform.position;
                         FindPortal(go, 1).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 3).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 1);
@@ -247,6 +269,7 @@ public class RoomSpawner : MonoBehaviour
                     }
                     else
                     {   
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 4).transform.position;
                         FindPortal(go, 3).GetComponent<Portal>().portalExit = portalExit; // Connect other room's portal to this room
                         FindPortal(go, 1).GetComponent<Portal>().portalExit = otherSpawner.portalExit; // Connect other room's portal to this room
                         portal.portalExit = FindPortalExit(go, 3);

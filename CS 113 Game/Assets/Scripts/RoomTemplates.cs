@@ -25,6 +25,7 @@ public class RoomTemplates : MonoBehaviour
     {
         if (waitTime <= 0 && !removed)
         {
+            Debug.Log(rooms[rooms.Count-1].name);
             finalRooms.RemoveAt(0);
             finalRooms.RemoveAt(0);
             Queue<GameObject> destroyedRooms = new Queue<GameObject>();
@@ -37,6 +38,7 @@ public class RoomTemplates : MonoBehaviour
                     if (op == 'B') // openingDirection == 1
                     {
                         GameObject go = Instantiate(bottom, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = RoomSpawner.FindMMSpawnPoint(finalRooms[i].GetComponent<AddRoom>().prevRoom.GetComponent<AddRoom>().mmSquare, 1).transform.position;
                         go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
                         RoomSpawner.FindPortal(go, 2).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 1); 
                         RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 1).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 2); 
@@ -44,6 +46,7 @@ public class RoomTemplates : MonoBehaviour
                     if (op == 'T') // openingDirection == 2
                     {
                         GameObject go = Instantiate(top, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = RoomSpawner.FindMMSpawnPoint(finalRooms[i].GetComponent<AddRoom>().prevRoom.GetComponent<AddRoom>().mmSquare, 2).transform.position;
                         go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
                         RoomSpawner.FindPortal(go, 1).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 2); 
                         RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 2).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 1); 
@@ -51,6 +54,7 @@ public class RoomTemplates : MonoBehaviour
                     if (op == 'L') // openingDirection == 3
                     {
                         GameObject go = Instantiate(left, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = RoomSpawner.FindMMSpawnPoint(finalRooms[i].GetComponent<AddRoom>().prevRoom.GetComponent<AddRoom>().mmSquare, 3).transform.position;
                         go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
                         RoomSpawner.FindPortal(go, 4).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 3);
                         RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 3).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 4); 
@@ -58,6 +62,7 @@ public class RoomTemplates : MonoBehaviour
                     if (op == 'R') // openingDirection == 4
                     {
                         GameObject go = Instantiate(right, finalRooms[i].transform.position, Quaternion.identity);
+                        go.GetComponent<AddRoom>().mmSquare.transform.position = RoomSpawner.FindMMSpawnPoint(finalRooms[i].GetComponent<AddRoom>().prevRoom.GetComponent<AddRoom>().mmSquare, 4).transform.position;
                         go.GetComponent<AddRoom>().prevRoom = finalRooms[i].GetComponent<AddRoom>().prevRoom;
                         RoomSpawner.FindPortal(go, 3).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go.GetComponent<AddRoom>().prevRoom, 4);
                         RoomSpawner.FindPortal(go.GetComponent<AddRoom>().prevRoom, 4).GetComponent<Portal>().portalExit = RoomSpawner.FindPortalExit(go, 3); 

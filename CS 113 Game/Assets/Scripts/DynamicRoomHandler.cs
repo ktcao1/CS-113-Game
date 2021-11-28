@@ -70,8 +70,8 @@ public class DynamicRoomHandler : MonoBehaviour
             Vector3 roomCenter = this.gameObject.transform.position;
             for (int i = 0; i < randGoblins; i++)
             {
-                float randX = Random.Range(roomCenter.x-3f, roomCenter.x+3f);
-                float randY = Random.Range(roomCenter.y-3f, roomCenter.y+3f);
+                float randX = Random.Range(roomCenter.x-2f, roomCenter.x+2f);
+                float randY = Random.Range(roomCenter.y-2f, roomCenter.y+2f);
                 Vector3 randLoc = new Vector3(randX, randY, roomCenter.z);
                 GameObject go = Instantiate(goblin, randLoc, Quaternion.identity);
                 go.transform.parent = enemies.transform;

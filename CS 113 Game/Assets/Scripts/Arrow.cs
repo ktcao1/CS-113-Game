@@ -5,12 +5,15 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     private Weapon weapon;
+    private Player player;
     public Vector3 shootDirection;
+    private bool hitWall;
     private float travelSpeed = 7f;
 
     void Start()
     {
-        weapon = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Weapon>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        weapon = player.GetComponentInChildren<Weapon>();
     }
 
     void Update()
@@ -35,7 +38,6 @@ public class Arrow : MonoBehaviour
 
             Enemy enemy = collider2D.GetComponent<Enemy>();
             enemy.TakeDamage(dmg);
-            Destroy(gameObject);
         }
     }
 }

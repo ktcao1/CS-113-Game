@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
 
     // Upgrade
     public int weaponLevel = 0;
+    private bool canAim = false;
 
     // Current weapon (bow or dagger)
     public string weaponType = "dagger";
@@ -56,18 +57,28 @@ public class Weapon : MonoBehaviour
 
     public void CompleteShoot()
     {
-        Vector3 mouse_pos = Input.mousePosition;
-        mouse_pos.z = 5.23f;
-        Vector3 object_pos = Camera.main.WorldToScreenPoint(transform.position);
-        mouse_pos.x = mouse_pos.x - object_pos.x;
-        mouse_pos.y = mouse_pos.y - object_pos.y;
-        float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
+        if (canAim) 
+        {
+            Vector3 mouse_pos = Input.mousePosition;
+            mouse_pos.z = 5.23f;
+            Vector3 object_pos = Camera.main.WorldToScreenPoint(transform.position);
+            mouse_pos.x = mouse_pos.x - object_pos.x;
+            mouse_pos.y = mouse_pos.y - object_pos.y;
+            float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
 
-        GameObject go = Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
-        Arrow goArrow = go.GetComponent<Arrow>();
-        goArrow.shootDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        goArrow.shootDirection.z = 0;
-        goArrow.shootDirection.Normalize();
+            GameObject go = Instantiate(arrowPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
+            Arrow goArrow = go.GetComponent<Arrow>();
+            goArrow.shootDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            goArrow.shootDirection.z = 0;
+            goArrow.shootDirection.Normalize();
+        }
+        else
+        {
+            Vector3 shootDir = new Vector3(-1, 0, 0);
+            if (player.transform.rotation.y == 0) shootDir = new Vector3(1, 0, 0);
+            GameObject go = Instantiate(arrowPrefab, transform.position, transform.rotation);
+            go.GetComponent<Arrow>().shootDirection = shootDir;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D)
