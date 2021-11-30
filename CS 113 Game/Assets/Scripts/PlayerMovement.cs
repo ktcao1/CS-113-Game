@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         if (isDashButtonDown && Time.time - lastDash > dashCooldown)
         {
             dashAnim.SetBool("press", true);
+            walkAnim.SetTrigger("dashing");
             lastDash = Time.time;
             isImmune = true;
 

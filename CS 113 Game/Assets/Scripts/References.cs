@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyReferences : MonoBehaviour
+public class References : MonoBehaviour
 {
     public List<GameObject> enemyList = new List<GameObject>();
     public Dictionary<string, GameObject> enemyDict = new Dictionary<string, GameObject>();
+    public List<GameObject> objectList = new List<GameObject>();
+    public Dictionary<string, GameObject> objectDict = new Dictionary<string, GameObject>();
 
     void Awake()
     {
         foreach (GameObject enemy in enemyList)
         {
             enemyDict.Add(enemy.name, enemy);
+        }
+        foreach (GameObject obj in objectList)
+        {
+            objectDict.Add(obj.name, obj);
         }
     }
 }

@@ -13,8 +13,11 @@ TagManager:
   - RoomTiles
   - StartRoom
   - Obstacle
-  - EnemyReferences
   - MMCam
+  - References
+  - ChestPanel
+  - ConfirmPanel
+  - WorldChestPanel
   layers:
   - Default
   - TransparentFX

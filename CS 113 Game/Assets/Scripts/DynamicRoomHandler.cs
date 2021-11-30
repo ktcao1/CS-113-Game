@@ -7,20 +7,22 @@ public class DynamicRoomHandler : MonoBehaviour
 {
     public Player player;
     public GameObject doors, frontDoors;
-    public GameObject goblin;
+    public GameObject goblin, obstacle, waypoint, worldChest;
     public bool roomCleared = false;
     public bool enemiesSpawned = false;
     public bool doorsActive = false;
     public string roomType;
     public List<GameObject> enemiesInRoom = new List<GameObject>();
+    public Transform spawnables;
     public GameObject enemies;
 
-    public EnemyReferences enemyReferences;
+    public References references;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        enemyReferences = GameObject.FindGameObjectWithTag("EnemyReferences").GetComponent<EnemyReferences>();
+        spawnables = transform.Find("Spawnables");
+        references = GameObject.FindGameObjectWithTag("References").GetComponent<References>();
         // Set room type
         roomType = "Enemies";
 
@@ -36,7 +38,10 @@ public class DynamicRoomHandler : MonoBehaviour
         frontDoors.SetActive(false);
 
         // Spawn random amount of enemies
-        goblin = enemyReferences.enemyDict["goblin"];
+        goblin = references.enemyDict["goblin"];
+        obstacle = references.objectDict["obstacle"];
+        waypoint = references.objectDict["waypoint"];
+        worldChest = references.objectDict["world_chest"];
     }
 
     void Update()
@@ -63,20 +68,70 @@ public class DynamicRoomHandler : MonoBehaviour
             frontDoors.SetActive(false);
             roomCleared = true;
             GameManager.instance.roomsCleared++;
+            if (GameManager.instance.roomsCleared % 2 == 0) Instantiate(worldChest, transform.position, Quaternion.identity);
         }
         else if (player.currentRoom == gameObject && doorsActive && !enemiesSpawned)
         {
-            int randGoblins = Random.Range(1, 4);
-            Vector3 roomCenter = this.gameObject.transform.position;
-            for (int i = 0; i < randGoblins; i++)
+            // Invoke("SpawnEnemies", 0.5f);
+            SpawnEnemiesAndObstacles();
+        }
+    }
+
+    void SpawnEnemiesAndObstacles()
+    {
+        List<Vector3> spawnedLocs = new List<Vector3>();
+
+        int randGoblins = Random.Range(1, 4);
+        Vector3 roomCenter = this.gameObject.transform.position;
+        for (int i = 0; i < randGoblins; i++)
+        {
+            while (true)
             {
+                bool safe = true;
                 float randX = Random.Range(roomCenter.x-2f, roomCenter.x+2f);
                 float randY = Random.Range(roomCenter.y-2f, roomCenter.y+2f);
                 Vector3 randLoc = new Vector3(randX, randY, roomCenter.z);
+                foreach (Vector3 loc in spawnedLocs)
+                {
+                    if (Vector3.Distance(randLoc, loc) < 1.5f)
+                    {
+                        safe = false;
+                        break;
+                    }
+                }
+                if (!safe) continue;
                 GameObject go = Instantiate(goblin, randLoc, Quaternion.identity);
                 go.transform.parent = enemies.transform;
+                spawnedLocs.Add(randLoc);
+                break;
             }
-            enemiesSpawned = true;
         }
+
+        int randObstacles = Random.Range(1, 5);
+        for (int i = 0; i < randObstacles; i++)
+        {
+            while (true)
+            {
+                bool safe = true;
+                float obX = Random.Range(roomCenter.x-3f, roomCenter.x+3f);
+                float obY = Random.Range(roomCenter.y-3f, roomCenter.y+3f);
+                Vector3 randObjLoc = new Vector3(obX, obY, roomCenter.z);
+                foreach (Vector3 loc in spawnedLocs)
+                {
+                    if (Vector3.Distance(randObjLoc, loc) < 1.5f || Vector3.Distance(randObjLoc, roomCenter) < 2f)
+                    {
+                        safe = false;
+                        break;
+                    }
+                }
+                if (!safe) continue;
+                GameObject goObj = Instantiate(obstacle, randObjLoc, Quaternion.identity);
+                goObj.transform.parent = spawnables.transform;
+                spawnedLocs.Add(randObjLoc);
+                break;
+            }
+        }
+
+        enemiesSpawned = true;
     }
 }
