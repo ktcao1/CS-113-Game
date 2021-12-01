@@ -16,16 +16,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource gameMusic;
     [SerializeField] private Image musicSymbol;
     [SerializeField] private Sprite musicOn, musicOff;
+    [SerializeField] private RoomTemplates roomTemplates;
     public int roomsCleared = 0;
     public bool disableInputs = false;
     public bool isLoading = true;
     public bool musicPaused = false;
+    public bool gamePaused = false;
+    public string difficulty;
 
     // Interactable UI
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject victoryPanel;
-    [SerializeField] private GameObject loadingPanel;
+    [SerializeField] private GameObject difficultyPanel;
     private Animator pausePanelAnim;
 
     // UI
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pausePanelAnim = pausePanel.GetComponent<Animator>();
-        loadingPanel.SetActive(true);
+        difficultyPanel.SetActive(true);
     }
 
     void OnApplicationFocus(bool hasFocus)
@@ -63,12 +66,14 @@ public class GameManager : MonoBehaviour
 
         if (pausePanelAnim.GetBool("show"))
         {
-            Time.timeScale = 1;
+            gamePaused = false;
+            Time.timeScale = player.currentTimeScale;
             pausePanelAnim.SetBool("show", false);
             if (!musicPaused) gameMusic.UnPause();
         }
         else
         {
+            gamePaused = true;
             Time.timeScale = 0;
             pausePanelAnim.SetBool("show", true);
             gameMusic.Pause();
@@ -112,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartScene()
     {
+        Time.timeScale = 1;
         StartCoroutine(LoadSceneAsync("SampleScene"));
     }
 
@@ -126,27 +132,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        scoreText.text = "Rooms Cleared: " + roomsCleared + " / " + roomTemplates.rooms.Count;
+    }
+
     // TODO: Change into different UI in the future
     public void IncrementScore()
     {
         int score = Int32.Parse(scoreText.text.Substring(16)) + 1;
-        scoreText.text = "Goblins Killed: " + score;
+        scoreText.text = "Enemies Killed: " + score;
         // if (score == roomsCleared - 1)
         // {
         //     Time.timeScale = 0;
         //     VictoryScreen();
         // }
-    }
-
-    // TODO
-    public void SaveState()
-    {
-
-    }
-
-    // TODO
-    public void LoadState()
-    {
-
     }
 }

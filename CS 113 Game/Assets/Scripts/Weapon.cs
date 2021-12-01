@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     public Sprite bowSprite, greenBowSprite;
 
     // Damage
-    public int damageValue = 5;
+    public int damageValue;
     public float pushForce;
 
     // Cooldown
@@ -23,11 +23,19 @@ public class Weapon : MonoBehaviour
     private float lastAttack = -0.5f;
 
     // Upgrade
-    public int weaponLevel = 0;
-    private bool canAim = false;
+    public int weaponLevel;
+    public bool canAim = false;
+    public bool upgraded = false;
 
     // Current weapon (bow or dagger)
     public string weaponType = "dagger";
+
+    void Start()
+    {
+        damageValue = 1;
+        pushForce = 0f;
+        weaponLevel = 0;
+    }
 
     void Update()
     {
@@ -85,10 +93,9 @@ public class Weapon : MonoBehaviour
     {
         if (collider2D.tag != "Enemy" || weaponType == "bow") return;
 
-        pushForce = (player.hasKnockBack) ? 1f : 0f;
         Damage dmg = new Damage
         {
-            damageAmount = damageValue,
+            damageAmount = damageValue + (weaponLevel * 0.25f),
             pushForce = pushForce,
             origin = player.transform.position
         };

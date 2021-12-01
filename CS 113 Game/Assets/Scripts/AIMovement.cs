@@ -10,20 +10,54 @@ public class AIMovement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [SerializeField] private LayerMask layerMask;
 
-    // private bool inChase = false;
+    public float waitTime = 1f;
+    public bool inChase = false;
+    public bool permaChase = false;
     public bool pushed = false;
     public Vector3 pushedDestination;
+
+    // Wander implementation
+    float maxDistance;
+    Vector3 wayPoint;
+    public bool isWander = false;
+    public float wanderSpeed;
     
     void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
-        movespeed = 2.5f;
+        movespeed = GetComponent<Enemy>().movespeed;
+        wanderSpeed = GetComponent<Enemy>().wanderSpeed;
+        maxDistance = 4f;
     }
 
     void Update()
     {
-        if (target != null && !pushed) 
+        inChase = (target != null && (Vector3.Distance(transform.position, target.position) <= 4f || permaChase)) ? true : false;
+
+        if (waitTime > 0)
+        {
+            if (permaChase || pushed) waitTime = 0;
+            else {
+                inChase = false;
+                waitTime -= Time.deltaTime;
+            }
+        }
+
+        if (!inChase)
+        {
+            if (!isWander) Wander();
+            else if (isWander && Vector2.Distance(transform.position, wayPoint) < 0.1f)
+            {
+                isWander = false;
+            }
+            else
+            {
+                transform.position = Vector2.MoveTowards(transform.position, wayPoint, wanderSpeed * Time.deltaTime);
+                spriteRenderer.flipX = (wayPoint.x < transform.position.x) ? true : false;
+            }
+        }
+        else if (!pushed && inChase) 
         {
             spriteRenderer.flipX = (target.transform.position.x < transform.position.x) ? true : false;
 
@@ -68,16 +102,29 @@ public class AIMovement : MonoBehaviour
         }
 
         // pushed logic
-        else if (target != null && pushed && Vector3.Distance(transform.position, pushedDestination) >= 0.1f)
+        else if (pushed && Vector3.Distance(transform.position, pushedDestination) >= 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, pushedDestination, (movespeed+1) * Time.deltaTime);
             GetComponent<BoxCollider2D>().isTrigger = true;
         }
-        else if (target != null && pushed && Vector3.Distance(transform.position, pushedDestination) < 0.1f)
+        else if (pushed && Vector3.Distance(transform.position, pushedDestination) < 0.1f)
         {
             pushed = false;
             GetComponent<BoxCollider2D>().isTrigger = false;
         }
+    }
+
+    void Wander()
+    {
+        isWander = true;
+        wayPoint = new Vector2(Random.Range(transform.position.x-maxDistance, transform.position.x+maxDistance), Random.Range(transform.position.y-maxDistance, transform.position.y+maxDistance));
+    }
+
+    void OnCollisionStay2D(Collision2D collision2D)
+    {
+        if (collision2D.gameObject.tag != "Obstacle") return;
+        GetComponent<BoxCollider2D>().isTrigger = false;
+        isWander = false;
     }
 
     public void PushForce(Damage dmg)

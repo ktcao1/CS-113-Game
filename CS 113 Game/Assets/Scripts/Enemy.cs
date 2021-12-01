@@ -4,28 +4,37 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private HealthBarEnemy hp;
+    [SerializeField] public HealthBarEnemy hp;
 
     // Stats
-    public int healthPoints;
-    public int maxHealthPoints;
-    public int damage;
+    public float healthPoints;
+    public float maxHealthPoints;
+    public float damage;
+    public float movespeed;
+    public float wanderSpeed;
 
-    private float triggerCooldown = 0.5f;
-    private float lastTrigger = -0.5f;
+    public float triggerCooldown;
+    public float lastTrigger;
+    public Player player;
+    public Weapon weapon;
 
-    private void Start()
+    public virtual void Start()
     {
-        maxHealthPoints = 15;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        weapon = player.GetComponentInChildren<Weapon>();
+        maxHealthPoints = 3;
         healthPoints = maxHealthPoints;
-        damage = 1;
+        movespeed = 2.5f;
+        wanderSpeed = 1.5f;
+        damage = 0.5f;
+        triggerCooldown = 0.5f;
+        lastTrigger = -0.5f;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            Player player = collision.gameObject.GetComponent<Player>();
             PlayerMovement pm = collision.gameObject.GetComponent<PlayerMovement>();
             if (!pm.isImmune)
             {
@@ -34,23 +43,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Damage dmg)
+    public virtual void TakeDamage(Damage dmg)
     {
         if (Time.time - lastTrigger > triggerCooldown)
         {
             lastTrigger = Time.time;
             
+            if (weapon.weaponType == "bow") GetComponent<AIMovement>().permaChase = true;
             healthPoints -= dmg.damageAmount;
             if (healthPoints <= 0) Die();
             GetComponent<AIMovement>().PushForce(dmg);
-            hp.UpdateHealth((float)healthPoints / maxHealthPoints);
+            hp.UpdateHealth(healthPoints / maxHealthPoints);
         }
     }
 
-    private void Die()
+    public void Die()
     {
         hp.UpdateHealth(1f/1f);
-        GameManager.instance.IncrementScore();
         Destroy(this.gameObject);
     }
 }

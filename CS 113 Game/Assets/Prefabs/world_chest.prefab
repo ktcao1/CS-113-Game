@@ -49,19 +49,48 @@ MonoBehaviour:
   weapon: {fileID: 0}
   opened: 0
   inWindow: 0
-  openedChestSprite: {fileID: 21300000, guid: b4e2b6c8655aec949827d071b00454e8, type: 3}
+  openedChestSprite: {fileID: 666151618579887218, guid: 50cfac46e54dae84aa0e1ed66ba4af0a, type: 3}
+  knockBackUpgradeSprite: {fileID: 21300000, guid: 22ff146922bc13c4893b3ad953b8ddf5, type: 3}
+  roomTemplates: {fileID: 0}
   rewardSprites:
-  - {fileID: 21300000, guid: 63e5ecf2ee1e02b429165eabca678172, type: 3}
   - {fileID: 21300000, guid: 36776ea290bbdbb4386d8bb79908de97, type: 3}
+  - {fileID: 21300000, guid: 63e5ecf2ee1e02b429165eabca678172, type: 3}
+  - {fileID: -4470654044548505675, guid: 8a819dc2d6e95584e9e04a788d224721, type: 3}
   - {fileID: 21300000, guid: e46c5515440db3948ade8629616e4686, type: 3}
+  - {fileID: 21300000, guid: e6efb93a747206a4eb6f34f917e86a14, type: 3}
+  - {fileID: 21300000, guid: 3c9386b675f54a04c872a1c772591426, type: 3}
+  - {fileID: 21300000, guid: 9adc8e9a9d8d3984693f3f6483c37ad7, type: 3}
+  - {fileID: 21300000, guid: a3cd73170d20c3e4899b88f41e8e49bd, type: 3}
+  - {fileID: 21300000, guid: 70704bff35c7c844c878604373c43010, type: 3}
+  - {fileID: 21300000, guid: a205f515c22a61a4cbba57a384677403, type: 3}
+  - {fileID: 21300000, guid: a0e8ef82397dcff46add9819c98d6dde, type: 3}
+  - {fileID: 21300000, guid: 654ff3197ee0ed04dab55efa15d5e8f8, type: 3}
   rewardTitles:
+  - Small Potion
   - +1 Heart
-  - Heal +2
-  - Heal +3
+  - Meat
+  - Large Potion
+  - +2 Hearts
+  - Knockback+
+  - Bow+
+  - Meat+
+  - Max Potion
+  - Curse Antidote
+  - Barrier
+  - Barrier+
   rewardDescriptions:
+  - Restore 2 health?
   - Gain +1 max health?
-  - Restore 2 health back?
-  - Restore 3 health back?
+  - Eat to increase strength?
+  - Restore 3 health?
+  - Gain +2 max health?
+  - Upgrade knockback on dagger?
+  - Upgrade to aim with bow?
+  - Eat to greatly increase strength?
+  - Restore 5 health?
+  - Revert all key rebinds?
+  - Gain +1 shield?
+  - Gain +2 shield?
 --- !u!212 &8939663430327758318
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -102,7 +131,7 @@ SpriteRenderer:
   m_SortingLayerID: -1041481547
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e1c3275d7837b0345b94fb23d3c66c3f, type: 3}
+  m_Sprite: {fileID: 5955915356699029813, guid: 50cfac46e54dae84aa0e1ed66ba4af0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,16 +155,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.032250762, y: 0.0049616396}
+  m_Offset: {x: -0.0051222444, y: -0.1758954}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.875, y: 1.3125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2728903, y: 1.2282355}
+  m_Size: {x: 1.2186333, y: 1.0654641}
   m_EdgeRadius: 0

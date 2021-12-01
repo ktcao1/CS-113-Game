@@ -74,6 +74,12 @@ public class ZeldaHealthBar : MonoBehaviour
 
     public void AddContainer()
     {
+        if (totalHearts == 15)
+        {
+            AddHearts(1);
+            return;
+        }
+
         GameObject newHeart = Instantiate(heartContainerPrefab, transform);
         currentContainer = heartContainers[heartContainers.Count - 1].GetComponent<HeartContainer>();
         heartContainers.Add(newHeart);

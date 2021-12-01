@@ -13,6 +13,8 @@ public class RoomTemplates : MonoBehaviour
     public GameObject top;
     public GameObject left;
     public GameObject right;
+    public Sprite bossSprite;
+    public References references;
 
     public GameObject[] closedRooms;
     public List<GameObject> rooms;
@@ -21,11 +23,15 @@ public class RoomTemplates : MonoBehaviour
     private float waitTime = 2f;
     private bool removed = false;
 
+    void Start()
+    {
+        references = GameObject.FindGameObjectWithTag("References").GetComponent<References>();
+    }
+
     void Update()
     {
         if (waitTime <= 0 && !removed)
         {
-            Debug.Log(rooms[rooms.Count-1].name);
             finalRooms.RemoveAt(0);
             finalRooms.RemoveAt(0);
             Queue<GameObject> destroyedRooms = new Queue<GameObject>();
@@ -78,6 +84,18 @@ public class RoomTemplates : MonoBehaviour
                 rooms.Remove(destroyedRoom);
                 Destroy(destroyedRoom);
             }
+
+            for (int i = 1; i < rooms.Count-1; i++)
+            {
+                int oneHalf = Random.Range(0, 2);
+                if (oneHalf == 0)
+                {
+                    rooms[i].GetComponent<AddRoom>().spawnChest = true;
+                    rooms[i].GetComponent<AddRoom>().mmSquare.GetComponent<SpriteRenderer>().sprite = references.spriteDict["minimap_dark"];
+                }
+            }
+            rooms[rooms.Count-1].GetComponent<AddRoom>().bossRoom = true;
+            rooms[rooms.Count-1].GetComponent<AddRoom>().mmSquare.GetComponent<SpriteRenderer>().sprite = bossSprite;
 
             // roomTiles.PlaceTiles();
             finalRooms.Clear();

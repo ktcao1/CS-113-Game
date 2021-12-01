@@ -189,7 +189,6 @@ public class RoomSpawner : MonoBehaviour
                 {
                     GameObject go = Instantiate(templates.closedRooms[0], transform.position, templates.closedRooms[0].transform.rotation);
                     go.GetComponent<AddRoom>().prevRoom = ownerRoom;
-                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 1)
                     {
                         go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 1).transform.position;
@@ -212,7 +211,6 @@ public class RoomSpawner : MonoBehaviour
                 {
                     GameObject go = Instantiate(templates.closedRooms[1], transform.position, templates.closedRooms[1].transform.rotation);
                     go.GetComponent<AddRoom>().prevRoom = ownerRoom;
-                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 1)
                     {
                         go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 1).transform.position;
@@ -235,7 +233,6 @@ public class RoomSpawner : MonoBehaviour
                 {
                     GameObject go = Instantiate(templates.closedRooms[2], transform.position, templates.closedRooms[2].transform.rotation);
                     go.GetComponent<AddRoom>().prevRoom = ownerRoom;
-                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 2)
                     {
                         go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 2).transform.position;
@@ -258,7 +255,6 @@ public class RoomSpawner : MonoBehaviour
                 {
                     GameObject go = Instantiate(templates.closedRooms[3], transform.position, templates.closedRooms[3].transform.rotation);
                     go.GetComponent<AddRoom>().prevRoom = ownerRoom;
-                    // Debug.Log(GetComponentInParent<AddRoom>().room.name);
                     if (openingDirection == 2)
                     {
                         go.GetComponent<AddRoom>().mmSquare.transform.position = FindMMSpawnPoint(GetComponentInParent<AddRoom>().mmSquare, 2).transform.position;

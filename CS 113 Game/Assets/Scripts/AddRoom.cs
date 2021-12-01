@@ -9,7 +9,10 @@ public class AddRoom : MonoBehaviour
     public GameObject room;
     public GameObject prevRoom;
     public GameObject mmSquare;
+    public bool bossRoom = false;
+    public bool spawnChest = false;
     public char op;
+
 
     void Awake()
     {

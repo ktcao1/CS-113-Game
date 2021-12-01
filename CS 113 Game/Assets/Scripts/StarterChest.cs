@@ -8,7 +8,7 @@ public class StarterChest : MonoBehaviour
     public Weapon weapon;
     public bool opened = false;
     public bool inWindow = false;
-    public Sprite openedChestSprite;
+    public Sprite openedChestSprite, knockBackUpgradeSprite;
 
     // UI
     [SerializeField] private GameObject starterPanel;
@@ -76,14 +76,32 @@ public class StarterChest : MonoBehaviour
     public void ConfirmKnockBack()
     {
         player.hasKnockBack = true;
+        weapon.pushForce = 1f;
+        weapon.animator.gameObject.SetActive(false);
+        weapon.GetComponent<SpriteRenderer>().sprite = knockBackUpgradeSprite;
+        weapon.animator.gameObject.SetActive(true);
         opened = true;
         CloseWindow();
     }
 
     public void ConfirmHearts()
     {
-        ZeldaHealthBar.instance.AddContainer();
-        ZeldaHealthBar.instance.AddContainer();
+        if (ZeldaHealthBar.instance.currentHearts == 15)
+        {
+            ZeldaBarrierBar.instance.AddBarriers(2);
+        }
+        else if (ZeldaHealthBar.instance.currentHearts >= 14)
+        {
+            float remainder = 15 - ZeldaHealthBar.instance.currentHearts;
+            float extra = 1 - remainder;
+            ZeldaHealthBar.instance.AddContainer();
+            ZeldaBarrierBar.instance.AddBarriers(1+extra);
+        }
+        else
+        {
+            ZeldaHealthBar.instance.AddContainer();
+            ZeldaHealthBar.instance.AddContainer();
+        }
         opened = true;
         CloseWindow();
     }

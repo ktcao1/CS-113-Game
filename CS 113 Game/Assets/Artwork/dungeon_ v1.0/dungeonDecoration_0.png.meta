@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: 1829054280099160377
     second: brick_obstacle
+  - first:
+      213: 5955915356699029813
+    second: chest_closed
+  - first:
+      213: 666151618579887218
+    second: chest_opened
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -102,7 +108,7 @@ TextureImporter:
         width: 10
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -110,6 +116,48 @@ TextureImporter:
       bones: []
       spriteID: 931e7305d2b126910800000000000000
       internalID: 1829054280099160377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest_closed
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 146
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 531f65c0679a7a250800000000000000
+      internalID: 5955915356699029813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chest_opened
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 146
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27471002e55ae3900800000000000000
+      internalID: 666151618579887218
       vertices: []
       indices: 
       edges: []
