@@ -14,12 +14,24 @@ public class Player : MonoBehaviour
     public KeyCode menuKey = KeyCode.Escape;
     public TMP_Text upText, downText, leftText, rightText;
     public TMP_Text attackText, interactText, dashText;
+
+    // Animations
+    [SerializeField] private Animator mainAnim;
+    [SerializeField] private Animator weaponAnim;
     [SerializeField] private Animator interactAnim;
     [SerializeField] private Image interactIcon;
     [SerializeField] private Sprite interactSprite, greenInteractSprite;
+
+    // Sound
+    [SerializeField] private AudioSource deathSound;
+    [SerializeField] private AudioSource hurtSound;
+
+    // Panels
     [SerializeField] private GameObject rebindPanel;
+    [SerializeField] public GameObject bossWarningPanel;
 
     // Stats and Combat
+    public bool isDead = false;
     private int healthPoints;
     private int maxHealthPoints;
     private float damageCoolDown = 1f;
@@ -59,7 +71,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(ZeldaBarrierBar.instance.currentBarriers);
+        if (isDead) return;
+
         if (Input.GetKeyDown(menuKey))
         {
             GameManager.instance.PauseGame();
@@ -121,6 +134,7 @@ public class Player : MonoBehaviour
             if (ZeldaBarrierBar.instance.currentBarriers >= dmg.damageAmount) ZeldaBarrierBar.instance.RemoveBarriers(dmg.damageAmount);
             else if (ZeldaBarrierBar.instance.currentBarriers < dmg.damageAmount) 
             {
+                hurtSound.Play();
                 float difference = dmg.damageAmount - ZeldaBarrierBar.instance.currentBarriers;
                 ZeldaBarrierBar.instance.RemoveBarriers(ZeldaBarrierBar.instance.currentBarriers);
                 ZeldaHealthBar.instance.RemoveHearts(difference);
@@ -130,6 +144,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                hurtSound.Play();
                 ZeldaHealthBar.instance.RemoveHearts(dmg.damageAmount);
                 flashRed = true;
                 if (ZeldaHealthBar.instance.currentHearts <= 0) Die();
@@ -192,7 +207,26 @@ public class Player : MonoBehaviour
     // TODO: Add animation and game over screen?
     private void Die()
     {
-        Destroy(this.gameObject);
+        isDead = true;
+        mainAnim.SetTrigger("death");
+        weaponAnim.SetTrigger("death");
+        GetComponent<BoxCollider2D>().isTrigger = true;
+    }
+
+    public void EventPlayDeathSound()
+    {
+        GameManager.instance.gameMusic.Pause();
+        deathSound.Play();
+    }
+
+    public void EventDeathScreen()
+    {
+        mainAnim.enabled = false;
         GameManager.instance.EndScreen();
+    }
+
+    void OnTriggerEnter2D(Collider2D collider2D)
+    {
+        if (collider2D.tag == "Obstacle" && !isDead) GetComponent<BoxCollider2D>().isTrigger = false;
     }
 }

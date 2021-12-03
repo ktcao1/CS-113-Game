@@ -211,7 +211,7 @@ public class WorldChest : MonoBehaviour
         {
             numbersToChooseFrom = new List<int>(new int[]{1, 2, 3, 9, 10});
         }
-        else if ((float)GameManager.instance.roomsCleared / roomTemplates.rooms.Count <= 0.75f) // player completed more than 60% of rooms
+        else if ((float)GameManager.instance.roomsCleared / roomTemplates.rooms.Count > 0.60f) // player completed more than 60% of rooms
         {
             if (weapon.weaponType == "dagger" && !weapon.upgraded)
             {

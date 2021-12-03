@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     // Resources
     [SerializeField] private List<Sprite> weaponSprites;
     [SerializeField] private Player player;
-    [SerializeField] private AudioSource gameMusic;
+    [SerializeField] public AudioSource gameMusic;
     [SerializeField] private Image musicSymbol;
     [SerializeField] private Sprite musicOn, musicOff;
     [SerializeField] private RoomTemplates roomTemplates;
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     // UI
     [SerializeField] private TMP_Text scoreText;
+    public bool fadingOut, startFading;
 
     private void Awake()
     {
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
     // TODO: Change into a full menu in the future
     public void PauseGame()
     {
-        if (disableInputs) return;
+        if (disableInputs || player.isDead) return;
 
         if (pausePanelAnim.GetBool("show"))
         {
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseMusic()
     {
+        if (player.isDead) return;
         if (!musicPaused)
         {
             musicSymbol.sprite = musicOff;
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour
     {
         gameMusic.Pause();
         gameOverPanel.SetActive(true);
+        startFading = true;
     }
 
     public void VictoryScreen()
@@ -119,6 +122,25 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         StartCoroutine(LoadSceneAsync("SampleScene"));
+    }
+    
+    IEnumerator FadeToFullAlphaImg(float t, Image i, string first)
+    {
+        while (i.color.a <= 1.0f)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.deltaTime / t));
+            if (i.color.a >= 1f && first == "first") fadingOut = true;
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeToFullAlphaText(float t, TMP_Text i)
+    {
+        while (i.color.a <= 1.0f)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.deltaTime / t));
+            yield return null;
+        }
     }
 
     IEnumerator LoadSceneAsync(string scene)
@@ -135,6 +157,18 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         scoreText.text = "Rooms Cleared: " + roomsCleared + " / " + roomTemplates.rooms.Count;
+    }
+
+    public void FixedUpdate()
+    {
+        if (startFading)
+            StartCoroutine(FadeToFullAlphaImg(50f, gameOverPanel.GetComponent<Image>(), "first"));
+        if (fadingOut)
+        {
+            StartCoroutine(FadeToFullAlphaText(50f, gameOverPanel.transform.Find("DiedText").GetComponent<TMP_Text>()));
+            StartCoroutine(FadeToFullAlphaText(50f, gameOverPanel.transform.Find("RestartButton").GetComponentInChildren<TMP_Text>()));
+            StartCoroutine(FadeToFullAlphaText(50f, gameOverPanel.transform.Find("BackToTitleButton").GetComponentInChildren<TMP_Text>()));
+        }
     }
 
     // TODO: Change into different UI in the future

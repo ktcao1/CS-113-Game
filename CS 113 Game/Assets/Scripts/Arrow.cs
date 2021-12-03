@@ -23,7 +23,7 @@ public class Arrow : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (collider2D.tag == "Obstacle")
+        if (collider2D.tag == "Obstacle" || collider2D.tag == "brick")
         {
             Destroy(gameObject);
         }

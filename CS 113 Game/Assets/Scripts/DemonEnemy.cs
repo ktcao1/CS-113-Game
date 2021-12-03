@@ -40,7 +40,7 @@ public class DemonEnemy : Enemy
             GameObject fireball = Instantiate(fireballPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
 
             Fireball goFireball = fireball.GetComponent<Fireball>();
-            goFireball.demon = this;
+            goFireball.host = gameObject;
             goFireball.shootDirection = player.transform.position - transform.position;
             goFireball.shootDirection.z = 0;
             goFireball.shootDirection.Normalize();

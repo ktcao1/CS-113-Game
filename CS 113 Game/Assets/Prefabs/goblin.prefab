@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 7554744542067713843}
   - component: {fileID: 5352890662281043677}
   - component: {fileID: 5352890662281043674}
+  - component: {fileID: 4726265048873577588}
   m_Layer: 6
   m_Name: goblin
   m_TagString: Enemy
@@ -262,8 +263,12 @@ MonoBehaviour:
   healthPoints: 0
   maxHealthPoints: 0
   damage: 0
+  movespeed: 0
+  wanderSpeed: 0
   triggerCooldown: 0
   lastTrigger: 0
+  player: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!114 &7554744542067713843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,12 +283,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   movespeed: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 5352890661833287567}
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+  waitTime: 1
+  inChase: 0
+  inPhase: 0
+  permaChase: 0
   pushed: 0
   pushedDestination: {x: 0, y: 0, z: 0}
+  isWander: 0
+  wanderSpeed: 0
 --- !u!61 &5352890662281043677
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -331,6 +342,25 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &4726265048873577588
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352890662281043675}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d30d8f80ca105c5439448395c58dccd7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7250299467486042601
 GameObject:
   m_ObjectHideFlags: 0

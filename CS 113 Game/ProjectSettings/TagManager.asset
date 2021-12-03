@@ -18,6 +18,7 @@ TagManager:
   - ChestPanel
   - ConfirmPanel
   - WorldChestPanel
+  - brick
   layers:
   - Default
   - TransparentFX

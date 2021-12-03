@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AddRoom : MonoBehaviour
 {
-    private RoomTemplates templates;
+    public RoomTemplates templates;
     public Player player;
     public GameObject room;
     public GameObject prevRoom;

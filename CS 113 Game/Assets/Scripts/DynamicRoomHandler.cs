@@ -7,7 +7,7 @@ public class DynamicRoomHandler : MonoBehaviour
 {
     public Player player;
     public GameObject doors, frontDoors;
-    public GameObject goblin, demon, tank;
+    public GameObject goblin, demon, tank, dragon;
     public GameObject obstacle, waypoint, worldChest;
     public bool roomCleared = false;
     public bool enemiesSpawned = false;
@@ -48,6 +48,7 @@ public class DynamicRoomHandler : MonoBehaviour
         goblin = references.enemyDict["goblin"];
         demon = references.enemyDict["demon"];
         tank = references.enemyDict["tank"];
+        dragon = references.enemyDict["dragon"];
 
         obstacle = references.objectDict["obstacle"];
         waypoint = references.objectDict["waypoint"];
@@ -101,11 +102,11 @@ public class DynamicRoomHandler : MonoBehaviour
 
         if (GetComponent<AddRoom>().bossRoom)
         {
-            // Spawn boss
+            SpawnRandomNumEnemies(1, dragon);
         }
         else if ((float)GameManager.instance.roomsCleared / roomTemplates.rooms.Count <= 0.20f) // player completed less than 20% of rooms
         {
-            randGoblins = Random.Range(1, 3);
+            randGoblins = Random.Range(1, 4);
         }
         else if ((float)GameManager.instance.roomsCleared / roomTemplates.rooms.Count <= 0.40f) // player completed 20-40% of rooms
         {
@@ -129,6 +130,7 @@ public class DynamicRoomHandler : MonoBehaviour
         SpawnRandomNumEnemies(randTanks, tank);
 
         int randObstacles = Random.Range(1, 5);
+        if (GetComponent<AddRoom>().bossRoom) randObstacles = 0;
         for (int i = 0; i < randObstacles; i++)
         {
             while (true)

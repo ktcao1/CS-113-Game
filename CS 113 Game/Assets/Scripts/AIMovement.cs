@@ -12,6 +12,7 @@ public class AIMovement : MonoBehaviour
 
     public float waitTime = 1f;
     public bool inChase = false;
+    public bool inPhase = false;
     public bool permaChase = false;
     public bool pushed = false;
     public Vector3 pushedDestination;
@@ -24,7 +25,6 @@ public class AIMovement : MonoBehaviour
     
     void Start()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
         movespeed = GetComponent<Enemy>().movespeed;
         wanderSpeed = GetComponent<Enemy>().wanderSpeed;
@@ -33,7 +33,14 @@ public class AIMovement : MonoBehaviour
 
     void Update()
     {
-        inChase = (target != null && (Vector3.Distance(transform.position, target.position) <= 4f || permaChase)) ? true : false;
+        if (GameManager.instance.difficulty == "hard" && Time.timeScale == .1f) 
+        {
+            inChase = false;
+            return;
+        }
+
+        if (movespeed == 0 && gameObject.name.Contains("dragon")) return;
+        inChase = (!target.gameObject.GetComponent<Player>().isDead && (Vector3.Distance(transform.position, target.position) <= 4f || permaChase || inPhase)) ? true : false;
 
         if (waitTime > 0)
         {
@@ -43,6 +50,8 @@ public class AIMovement : MonoBehaviour
                 waitTime -= Time.deltaTime;
             }
         }
+
+        if (inChase && !pushed) GetComponent<Animator>().SetBool("walking", true); else GetComponent<Animator>().SetBool("walking", false);
 
         if (!inChase)
         {
@@ -122,9 +131,9 @@ public class AIMovement : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision2D)
     {
-        if (collision2D.gameObject.tag != "Obstacle") return;
+        if (collision2D.gameObject.tag != "Obstacle" && collision2D.gameObject.tag != "brick") return;
         GetComponent<BoxCollider2D>().isTrigger = false;
-        isWander = false;
+        Wander();
     }
 
     public void PushForce(Damage dmg)

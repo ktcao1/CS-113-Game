@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private BoxCollider2D weaponCollider;
+    [SerializeField] public BoxCollider2D weaponCollider;
     [SerializeField] private Animator attackAnim;
     [SerializeField] private GameObject arrowPrefab;
     public Animator animator;
@@ -102,5 +102,11 @@ public class Weapon : MonoBehaviour
 
         Enemy enemy = collider2D.GetComponent<Enemy>();
         enemy.TakeDamage(dmg);
+    }
+
+    public void EndAnimation()
+    {
+        animator.enabled = false;
+        weaponCollider.enabled = false;
     }
 }

@@ -19,6 +19,12 @@ public class Portal : MonoBehaviour
     {
         if (collider2D.tag == "Player")
         {
+            if (portalExit.GetComponentInParent<AddRoom>().bossRoom && GameManager.instance.roomsCleared < GetComponentInParent<AddRoom>().templates.rooms.Count - 1)
+            {
+                player.bossWarningPanel.SetActive(true);
+                return;
+            }
+
             float x = portalExit.GetComponentInParent<AddRoom>().room.transform.position.x;
             float y = portalExit.GetComponentInParent<AddRoom>().room.transform.position.y;
             float mm_x = portalExit.GetComponentInParent<AddRoom>().mmSquare.transform.position.x;
@@ -31,5 +37,10 @@ public class Portal : MonoBehaviour
             Camera.main.transform.position = new Vector3(x, y, saveZ);
             minimapCam.transform.position = new Vector3(mm_x, mm_y, saveZ);
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider2D)
+    {
+        if (collider2D.tag == "Player") player.bossWarningPanel.SetActive(false);
     }
 }

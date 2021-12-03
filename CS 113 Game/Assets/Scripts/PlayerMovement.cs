@@ -14,9 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     // I-Frame dash
     [SerializeField] private LayerMask dashLayerMask;
+    [SerializeField] private Image dashCDBar;
     private bool isDashButtonDown = false;
-    private float lastDash = -1.5f;
-    private float dashCooldown = 1.5f;
+    public float lastDash = -1.5f;
+    public float dashCooldown = 1.5f;
     private float immuneTime = 0.5f;
     private float phaseTime = 0.2f;
     public bool isImmune = false;
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.isLoading || GameManager.instance.disableInputs) return;
+        if (GameManager.instance.isLoading || GameManager.instance.disableInputs || player.isDead) return;
         
         upAnim.SetBool("press", Input.GetKey(player.upKey) ? true : false);
         downAnim.SetBool("press", Input.GetKey(player.downKey) ? true : false);
@@ -75,11 +76,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (player.isDead) return;
         if (movement.x > 0) player.transform.rotation = Quaternion.Euler(0, 0, 0);
         else if (movement.x < 0) player.transform.rotation = Quaternion.Euler(0, 180, 0);
         if (movement != Vector2.zero)
             lastMoveDir = movement;
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+
+        if (Time.time - lastDash <= dashCooldown) dashCDBar.fillAmount = Mathf.Min(1, (Time.time - lastDash) / dashCooldown);
+        else dashCDBar.fillAmount = 1;
+
+        Vector3 dashPosition = transform.position + lastMoveDir * dashAmount;
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, lastMoveDir, dashAmount, dashLayerMask);
 
         if (isDashButtonDown && Time.time - lastDash > dashCooldown)
         {
@@ -87,9 +95,6 @@ public class PlayerMovement : MonoBehaviour
             walkAnim.SetTrigger("dashing");
             lastDash = Time.time;
             isImmune = true;
-
-            Vector3 dashPosition = transform.position + lastMoveDir * dashAmount;
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, lastMoveDir, dashAmount, dashLayerMask);
 
             if (raycastHit2D.collider != null) 
             {

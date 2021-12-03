@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6798b0028fe1e1c4ab47df2e7be8f69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  demon: {fileID: 0}
+  host: {fileID: 0}
   shootDirection: {x: 0, y: 0, z: 0}
 --- !u!61 &3499656332232510449
 BoxCollider2D:
