@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         StartCoroutine(LoadSceneAsync("SampleScene"));
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     
     IEnumerator FadeToFullAlphaImg(float t, Image i, string first)
     {

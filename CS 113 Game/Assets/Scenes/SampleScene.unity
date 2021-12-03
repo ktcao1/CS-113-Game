@@ -1480,11 +1480,11 @@ RectTransform:
   m_Children:
   - {fileID: 420374169}
   m_Father: {fileID: 1660227209}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -340}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 1016, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &187657515
@@ -4479,7 +4479,7 @@ GameObject:
   - component: {fileID: 509848913}
   - component: {fileID: 509848912}
   m_Layer: 5
-  m_Name: HowToPlayButton
+  m_Name: QuitGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4498,11 +4498,11 @@ RectTransform:
   m_Children:
   - {fileID: 2026954306}
   m_Father: {fileID: 1660227209}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -340}
   m_SizeDelta: {x: 1016, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509848912
@@ -4548,7 +4548,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 509848913}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1803757887}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &509848913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6549,7 +6561,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    A difficult challenge with full rebinds'
+    Taking damage rebinds movement or interaction keys'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
   m_sharedMaterial: {fileID: -3939358481468211089, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
@@ -10750,7 +10762,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -70}
-  m_SizeDelta: {x: 500, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1479175805
 MonoBehaviour:
@@ -10774,7 +10786,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    A slight challenge with partial rebinds'
+    Taking damage rebinds interaction keys'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
   m_sharedMaterial: {fileID: -3939358481468211089, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
@@ -11294,8 +11306,8 @@ RectTransform:
   m_Children:
   - {fileID: 1807747085}
   - {fileID: 679404013}
-  - {fileID: 509848911}
   - {fileID: 187657514}
+  - {fileID: 509848911}
   m_Father: {fileID: 41542159}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13154,7 +13166,7 @@ GameObject:
   - component: {fileID: 2026954308}
   - component: {fileID: 2026954307}
   m_Layer: 5
-  m_Name: HowToPlayText
+  m_Name: QuitGameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13199,7 +13211,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How to Play
+  m_text: 'Quit Game
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
   m_sharedMaterial: {fileID: -3939358481468211089, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
@@ -13445,7 +13459,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -70}
-  m_SizeDelta: {x: 500, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2049541445
 MonoBehaviour:
@@ -13467,7 +13481,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Casual play without rebinds
+  m_text: '
+
+    Taking damage does not rebind any keys'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}
   m_sharedMaterial: {fileID: -3939358481468211089, guid: cf5e84c9144b113409a33c3157e37b81, type: 2}

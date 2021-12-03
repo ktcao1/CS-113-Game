@@ -8,6 +8,7 @@ public class StarterChest : MonoBehaviour
     public Weapon weapon;
     public bool opened = false;
     public bool inWindow = false;
+    public bool _inTrigger = false;
     public Sprite openedChestSprite, knockBackUpgradeSprite;
 
     // UI
@@ -30,6 +31,16 @@ public class StarterChest : MonoBehaviour
         if (opened && gameObject.GetComponent<SpriteRenderer>().sprite != openedChestSprite)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = openedChestSprite;
+        }
+        else if (_inTrigger && !opened && Input.GetKeyDown(player.interactKey) && !inWindow)
+        {
+            inWindow = true;
+            CashOut();
+        }
+        else if (_inTrigger && !opened && Input.GetKeyDown(player.interactKey) && inWindow)
+        {
+            inWindow = false;
+            CloseWindow();
         }
     }
 
@@ -118,22 +129,14 @@ public class StarterChest : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if (!opened && collider.tag == "Player" && Input.GetKeyDown(player.interactKey) && !inWindow)
-        {
-            inWindow = true;
-            CashOut();
-        }
-        else if (!opened && collider.tag == "Player" && Input.GetKeyDown(player.interactKey) && inWindow)
-        {
-            inWindow = false;
-            CloseWindow();
-        }
+        if (collider.tag == "Player") _inTrigger = true;
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         if (!opened && collider.tag == "Player")
         {
+            _inTrigger = false;
             CloseWindow();
         }
     }
