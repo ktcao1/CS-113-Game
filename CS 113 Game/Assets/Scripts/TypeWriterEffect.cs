@@ -12,6 +12,8 @@ public class TypeWriterEffect : MonoBehaviour
     public string originalText;
     public bool loop, typeDone;
     public bool fadingOut = true;
+    public bool typeSoundBool, playOnce = false;
+    public AudioSource typeSound;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class TypeWriterEffect : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (typeDone)
+        if (typeDone && !playOnce)
         {
             StartCoroutine(FadeTextToZeroAlpha(10f, txt));
             // StartCoroutine(FadeTextToFullAlpha(1f, txt));
@@ -37,6 +39,7 @@ public class TypeWriterEffect : MonoBehaviour
             for (int i = 0; i < fullText.Length; i++)
             {
                 currentText = fullText[i];
+                if (typeSoundBool && currentText != ' ') typeSound.Play();
                 txt.text += currentText;
                 yield return new WaitForSeconds(delay);
             }

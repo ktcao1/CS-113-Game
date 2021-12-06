@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     // UI
     [SerializeField] private TMP_Text scoreText;
-    public bool fadingOut, startFading;
+    public bool fadingOut, startFading, coinFading;
 
     private void Awake()
     {
@@ -113,7 +113,9 @@ public class GameManager : MonoBehaviour
 
     public void VictoryScreen()
     {
+        GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("Victory").GetComponent<AudioSource>().Play();
         disableInputs = true;
+        coinFading = true;
         gameMusic.Pause();
         victoryPanel.SetActive(true);
     }
@@ -148,6 +150,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator FadeToZeroAlphaImg(float t, Image i)
+    {
+        while (i.color.a >= 0f)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
+            yield return null;
+        }
+    }
+
     IEnumerator LoadSceneAsync(string scene)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
@@ -173,6 +184,10 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FadeToFullAlphaText(50f, gameOverPanel.transform.Find("DiedText").GetComponent<TMP_Text>()));
             StartCoroutine(FadeToFullAlphaText(50f, gameOverPanel.transform.Find("RestartButton").GetComponentInChildren<TMP_Text>()));
             StartCoroutine(FadeToFullAlphaText(50f, gameOverPanel.transform.Find("BackToTitleButton").GetComponentInChildren<TMP_Text>()));
+        }
+        if (coinFading)
+        {
+            StartCoroutine(FadeToZeroAlphaImg(100f, victoryPanel.transform.Find("CoinImage").GetComponent<Image>()));
         }
     }
 

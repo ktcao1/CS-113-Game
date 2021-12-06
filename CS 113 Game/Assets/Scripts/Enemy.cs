@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] public HealthBarEnemy hp;
+    public AudioSource hurtSound;
 
     // Stats
     public float healthPoints;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         weapon = player.GetComponentInChildren<Weapon>();
+        hurtSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("GoblinHurt").GetComponent<AudioSource>();
         maxHealthPoints = 3;
         healthPoints = maxHealthPoints;
         movespeed = 2.5f;
@@ -49,6 +51,7 @@ public class Enemy : MonoBehaviour
         {
             lastTrigger = Time.time;
             
+            hurtSound.Play();
             if (weapon.weaponType == "bow") GetComponent<AIMovement>().permaChase = true;
             healthPoints -= dmg.damageAmount;
             if (healthPoints <= 0) Die();

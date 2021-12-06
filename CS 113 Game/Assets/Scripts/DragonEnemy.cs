@@ -23,6 +23,7 @@ public class DragonEnemy : Enemy
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         weapon = player.GetComponentInChildren<Weapon>();
+        hurtSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("DragonHurt").GetComponent<AudioSource>();
         fbLocations1 = gameObject.transform.Find("FireballLocations1");
         fbLocations2 = gameObject.transform.Find("FireballLocations2");
         maxHealthPoints = 25;
@@ -185,6 +186,7 @@ public class DragonEnemy : Enemy
         {
             lastTrigger = Time.time;
             
+            hurtSound.Play();
             if (weapon.weaponType == "bow") GetComponent<AIMovement>().permaChase = true;
             healthPoints -= dmg.damageAmount;
             if (healthPoints <= 0) Die();

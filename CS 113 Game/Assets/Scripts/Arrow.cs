@@ -14,6 +14,7 @@ public class Arrow : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         weapon = player.GetComponentInChildren<Weapon>();
+        weapon.shootSound.Play();
     }
 
     void Update()

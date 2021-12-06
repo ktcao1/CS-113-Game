@@ -91,6 +91,7 @@ public class StarterChest : MonoBehaviour
         weapon.animator.gameObject.SetActive(false);
         weapon.GetComponent<SpriteRenderer>().sprite = knockBackUpgradeSprite;
         weapon.animator.gameObject.SetActive(true);
+        GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("RedeemChest").GetComponent<AudioSource>().Play();
         opened = true;
         CloseWindow();
     }
@@ -113,6 +114,7 @@ public class StarterChest : MonoBehaviour
             ZeldaHealthBar.instance.AddContainer();
             ZeldaHealthBar.instance.AddContainer();
         }
+        GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("RedeemChest").GetComponent<AudioSource>().Play();
         opened = true;
         CloseWindow();
     }
@@ -123,6 +125,7 @@ public class StarterChest : MonoBehaviour
         weapon.weaponType = "bow";
         weapon.attackIcon.sprite = weapon.bowSprite;
         weapon.animator.SetBool("Bow", true);
+        GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("RedeemChest").GetComponent<AudioSource>().Play();
         opened = true;
         CloseWindow();
     }

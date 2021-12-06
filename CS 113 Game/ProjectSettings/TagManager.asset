@@ -19,6 +19,7 @@ TagManager:
   - ConfirmPanel
   - WorldChestPanel
   - brick
+  - SoundDevice
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ public class TankEnemy : Enemy
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         weapon = player.GetComponentInChildren<Weapon>();
+        hurtSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("TankHurt").GetComponent<AudioSource>();
         maxHealthPoints = 8;
         healthPoints = maxHealthPoints;
         movespeed = 1.5f;
@@ -23,6 +24,7 @@ public class TankEnemy : Enemy
         {
             lastTrigger = Time.time;
             
+            hurtSound.Play();
             if (weapon.weaponType == "bow") GetComponent<AIMovement>().permaChase = true;
             healthPoints -= dmg.damageAmount;
             if (healthPoints <= 0) Die();

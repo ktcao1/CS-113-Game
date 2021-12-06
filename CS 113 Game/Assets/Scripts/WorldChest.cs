@@ -36,20 +36,8 @@ public class WorldChest : MonoBehaviour
         option1 = chestPanel.transform.Find("Option1").gameObject;
         option2 = chestPanel.transform.Find("Option2").gameObject;
 
-        // Set Buttons
-        option1.GetComponent<Button>().onClick.AddListener(delegate{SetupConfirm("option1");});
-        option2.GetComponent<Button>().onClick.AddListener(delegate{SetupConfirm("option2");});
-
         // Randomized rewards
         ChooseRewards();
-
-        // Sprite
-        option1.GetComponent<Image>().sprite = rewardSprites[option1IND];
-        option2.GetComponent<Image>().sprite = rewardSprites[option2IND];
-
-        // Title
-        option1.GetComponentInChildren<TMP_Text>().text = rewardTitles[option1IND];
-        option2.GetComponentInChildren<TMP_Text>().text = rewardTitles[option2IND];
 
         currentWindow = chestPanel;
     }
@@ -67,7 +55,6 @@ public class WorldChest : MonoBehaviour
         }
         else if (_inTrigger && !opened && Input.GetKeyDown(player.interactKey) && inWindow)
         {
-            inWindow = false;
             CloseWindow();
         }
     }
@@ -172,12 +159,28 @@ public class WorldChest : MonoBehaviour
         {
             ZeldaBarrierBar.instance.AddBarriers(2);
         }
+        GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("RedeemChest").GetComponent<AudioSource>().Play();
         opened = true;
         CloseWindow();
     }
 
     void CashOut()
     {
+        option1.GetComponent<Button>().onClick.RemoveAllListeners();
+        option2.GetComponent<Button>().onClick.RemoveAllListeners();
+
+        // Set Buttons
+        option1.GetComponent<Button>().onClick.AddListener(delegate{SetupConfirm("option1");});
+        option2.GetComponent<Button>().onClick.AddListener(delegate{SetupConfirm("option2");});
+
+        // Sprite
+        option1.GetComponent<Image>().sprite = rewardSprites[option1IND];
+        option2.GetComponent<Image>().sprite = rewardSprites[option2IND];
+
+        // Title
+        option1.GetComponentInChildren<TMP_Text>().text = rewardTitles[option1IND];
+        option2.GetComponentInChildren<TMP_Text>().text = rewardTitles[option2IND];
+
         chestPanel.SetActive(true);
         currentWindow = chestPanel;
     }

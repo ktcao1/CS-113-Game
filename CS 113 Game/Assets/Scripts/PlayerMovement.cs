@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float phaseTime = 0.2f;
     public bool isImmune = false;
     private float dashAmount = 1.5f;
+    public AudioSource dashSound;
 
     // Animator controllers
     [SerializeField] private Animator upAnim, downAnim, leftAnim, rightAnim, dashAnim;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         bc = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        dashSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("Dash").GetComponent<AudioSource>();;
     }
 
     private void Update()
@@ -91,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isDashButtonDown && Time.time - lastDash > dashCooldown)
         {
+            dashSound.Play();
             dashAnim.SetBool("press", true);
             walkAnim.SetTrigger("dashing");
             lastDash = Time.time;

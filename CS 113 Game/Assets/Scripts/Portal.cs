@@ -8,11 +8,13 @@ public class Portal : MonoBehaviour
     public int openingDirection;
     public GameObject portalExit;
     public Camera minimapCam;
+    public AudioSource takePortalSound;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         minimapCam = GameObject.FindGameObjectWithTag("MMCam").GetComponent<Camera>();
+        takePortalSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("TakePortal").GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider2D)
@@ -32,6 +34,7 @@ public class Portal : MonoBehaviour
             
             player.currentRoom = portalExit.GetComponentInParent<AddRoom>().room;
             
+            takePortalSound.Play();
             player.transform.position = portalExit.transform.position;
             float saveZ = Camera.main.transform.position.z;
             Camera.main.transform.position = new Vector3(x, y, saveZ);

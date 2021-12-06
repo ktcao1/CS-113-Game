@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] public BoxCollider2D weaponCollider;
     [SerializeField] private Animator attackAnim;
     [SerializeField] private GameObject arrowPrefab;
+    public AudioSource swingSound, shootSound;
     public Animator animator;
     public Image attackIcon;
     public Sprite attackSprite, greenAttackSprite;
@@ -35,6 +36,8 @@ public class Weapon : MonoBehaviour
         damageValue = 1;
         pushForce = 0f;
         weaponLevel = 0;
+        swingSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("SwordSwing").GetComponent<AudioSource>();
+        shootSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("BowShoot").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -58,8 +61,15 @@ public class Weapon : MonoBehaviour
         if (Time.time - lastAttack > cooldown)
         {
             lastAttack = Time.time;
-            if (weaponType == "dagger") animator.SetTrigger("Attack");
-            else if (weaponType == "bow") animator.SetTrigger("Shoot");
+            if (weaponType == "dagger") 
+            {
+                swingSound.Play();
+                animator.SetTrigger("Attack");
+            }
+            else if (weaponType == "bow") 
+            {
+                animator.SetTrigger("Shoot");
+            }
         }
     }
 

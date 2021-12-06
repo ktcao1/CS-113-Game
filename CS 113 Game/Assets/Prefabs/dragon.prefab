@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: {fileID: 5766887615501376709}
+  hurtSound: {fileID: 0}
   healthPoints: 0
   maxHealthPoints: 0
   damage: 0

@@ -12,6 +12,7 @@ public class DemonEnemy : Enemy
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         weapon = player.GetComponentInChildren<Weapon>();
+        hurtSound = GameObject.FindGameObjectWithTag("SoundDevice").transform.Find("DemonHurt").GetComponent<AudioSource>();
         maxHealthPoints = 4;
         healthPoints = maxHealthPoints;
         movespeed = 2f;
